@@ -271,3 +271,11 @@ Do not add unless explicitly requested:
 - AI face recognition;
 - elaborate role-management systems;
 - unnecessary animation frameworks.
+
+
+### Surprise/secrecy boundary
+
+- Public projector state must never expose `seniors`, per-team senior counts, total headcount including seniors, invite data, or imposter identity before reveal.
+- The participant's initial bundle must not contain the post-alert imposter/voting/reveal copy. Keep `ParticipantTwist` lazy-loaded.
+- Normal two-person alliances may form in `JOINING`; trios are allowed only in `PAIRING`, after junior joining is closed and that team's senior has joined.
+- A senior browser uses a separate local token from a junior browser session so rehearsal on the public QR cannot consume or mask the senior invite.

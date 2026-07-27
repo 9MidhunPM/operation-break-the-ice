@@ -4,29 +4,27 @@ type Scope = 'participant' | 'public'
 interface Listener { res: Response; participantId: string | null; scope: Scope }
 const listeners = new Set<Listener>()
 
-function write(res: Response, event: string, data: unknown) {
-  res.write(`event: ${event}\n`)
-  res.write(`data: ${JSON.stringify(data)}\n\n`)
+function remove(listener: Listener) { listeners.delete(listener) }
+function write(listener: Listener, event: string, data: unknown) {
+  try {
+    listener.res.write(`event: ${event}\n`)
+    listener.res.write(`data: ${JSON.stringify(data)}\n\n`)
+  } catch {
+    remove(listener)
+  }
 }
 
 export function addListener(res: Response, participantId: string | null, scope: Scope) {
-  const listener = { res, participantId, scope }
+  const listener={res,participantId,scope}
   listeners.add(listener)
-  write(res, 'connected', { ok: true })
-  const keepAlive = setInterval(() => res.write(': ping\n\n'), 20_000)
-  const cleanup = () => { clearInterval(keepAlive); listeners.delete(listener) }
-  res.on('close', cleanup)
-  res.on('error', cleanup)
+  write(listener,'connected',{ok:true})
+  const keepAlive=setInterval(()=>{try{res.write(': ping\n\n')}catch{remove(listener)}},20_000)
+  let cleaned=false
+  const cleanup=()=>{if(cleaned)return;cleaned=true;clearInterval(keepAlive);remove(listener)}
+  res.on('close',cleanup)
+  res.on('error',cleanup)
 }
 
-export function broadcastAll(event: string, data: unknown) {
-  for (const l of listeners) write(l.res, event, data)
-}
-
-export function broadcastPublic(event: string, data: unknown) {
-  for (const l of listeners) if (l.scope === 'public') write(l.res, event, data)
-}
-
-export function sendToParticipant(participantId: string, event: string, data: unknown) {
-  for (const l of listeners) if (l.participantId === participantId) write(l.res, event, data)
-}
+export function broadcastAll(event: string, data: unknown) { for (const l of [...listeners]) write(l,event,data) }
+export function broadcastPublic(event: string, data: unknown) { for (const l of [...listeners]) if(l.scope==='public') write(l,event,data) }
+export function sendToParticipant(participantId: string, event: string, data: unknown) { for (const l of [...listeners]) if(l.participantId===participantId) write(l,event,data) }

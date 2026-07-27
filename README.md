@@ -58,8 +58,8 @@ Persist `/data` so the SQLite event database survives restarts.
 
 ## Event flow
 
-1. **JOINING** — QR + name entry + team/character reveal.
-2. **PAIRING** — physically find a teammate, send request, mutual accept.
+1. **JOINING** — QR + name entry + team/character reveal; normal two-person alliances may already form.
+2. **PAIRING** — junior joining is now closed; finish remaining alliances and allow one final trio only for an odd team whose senior has joined.
 3. **IMPOSTER_ALERT** — all phones/projector glitch into the twist.
 4. **HUNT_CLUE_1** — hunt timer + first clue.
 5. **HUNT_PHOTO** — team-specific childhood photo becomes available.

@@ -83,12 +83,26 @@ function joinSenior(clientToken: string, name: string, inviteToken: string): Par
 export function joinParticipant(clientToken: string, rawName: unknown, inviteToken?: string): ParticipantState {
   if (!/^[A-Za-z0-9_-]{16,100}$/.test(clientToken)) throw new Error('Invalid browser token.')
   const existing = getByToken.get(clientToken) as ParticipantRow | undefined
-  if (existing) return participantState(existing)
-  if (!['JOINING','PAIRING'].includes(getEventState().phase)) throw new Error('Joining is closed for this event.')
+  if (existing) {
+    if (inviteToken) {
+      const invite=db.prepare('SELECT participant_id FROM senior_invites WHERE token_hash=?').get(sha256(inviteToken)) as {participant_id:string|null}|undefined
+      if (existing.is_senior !== 1 || !invite || invite.participant_id !== existing.id) {
+        throw new Error('This senior invite does not belong to the active senior session on this device.')
+      }
+    }
+    return participantState(existing)
+  }
+  const phase=getEventState().phase
+  if (inviteToken) {
+    if (!['JOINING','PAIRING'].includes(phase)) throw new Error('Senior joining is closed for this event.')
+  } else if (phase !== 'JOINING') {
+    throw new Error('Junior joining is closed. Please speak to an organiser.')
+  }
   const name = cleanName(rawName)
   const tx = db.transaction(() => inviteToken ? joinSenior(clientToken, name, inviteToken) : joinJunior(clientToken, name))
   return participantState(tx())
 }
+
 
 function member(row: ParticipantRow): AllianceMember {
   return { id: row.id, name: row.name, characterId: row.character_id, characterName: character(row.team_id,row.character_id).name }

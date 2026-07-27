@@ -6,7 +6,7 @@ import { addListener, broadcastAll, broadcastPublic, sendToParticipant } from '.
 import { joinParticipant, participantRowByToken, participantStateByToken } from './participants'
 import { cancelPairRequest, createPairRequest, respondPairRequest } from './pairing'
 import { getEventState } from './event-state'
-import { recentAlliances, revealState, stats } from './stats'
+import { projectorStats, recentAlliances, revealState } from './stats'
 import { adminSetPhase, adminSetReveal, adminState, login, requireAdmin, resetLiveEvent } from './admin'
 import { castParticipantVote, teamMembersForVoting } from './voting'
 import type { EventPhase, RevealStep } from '../src/types/game'
@@ -41,12 +41,15 @@ api.get('/me',handler((req,res)=>{
 }))
 
 api.get('/events',handler((req,res)=>{
-  const row=participantRowByToken(token(req))
+  const scope=String(req.query.scope||'participant')==='public'?'public':'participant'
+  const row=scope==='participant'?participantRowByToken(token(req)):null
+  if(scope==='participant'&&!row)return error(res,401,'Participant session not found.')
   res.setHeader('Content-Type','text/event-stream')
   res.setHeader('Cache-Control','no-cache, no-transform')
   res.setHeader('Connection','keep-alive')
+  res.setHeader('X-Accel-Buffering','no')
   res.flushHeaders?.()
-  addListener(res,row?.id ?? null, String(req.query.scope||'participant') === 'public' ? 'public' : 'participant')
+  addListener(res,row?.id??null,scope)
 }))
 
 api.post('/pair-requests',handler((req,res)=>{
@@ -58,19 +61,27 @@ api.post('/pair-requests',handler((req,res)=>{
 
 api.delete('/pair-requests/:id',handler((req,res)=>{
   const p=player(req,res); if(!p)return
-  cancelPairRequest(p,String(req.params.id))
+  const requestId=String(req.params.id)
+  const pending=db.prepare(`SELECT to_participant_id FROM pair_requests WHERE id=? AND from_participant_id=? AND status='PENDING'`).get(requestId,p.id) as {to_participant_id:string}|undefined
+  cancelPairRequest(p,requestId)
   sendToParticipant(p.id,'snapshot-invalidated',{})
+  if(pending)sendToParticipant(pending.to_participant_id,'snapshot-invalidated',{})
   res.json({ok:true})
 }))
 
 api.post('/pair-requests/:id/respond',handler((req,res)=>{
   const p=player(req,res); if(!p)return
-  const alliance=respondPairRequest(p,String(req.params.id),Boolean((req.body as any).accept))
+  const requestId=String(req.params.id)
+  const pending=db.prepare(`SELECT from_participant_id FROM pair_requests WHERE id=? AND to_participant_id=?`).get(requestId,p.id) as {from_participant_id:string}|undefined
+  const alliance=respondPairRequest(p,requestId,Boolean((req.body as any).accept))
   if(alliance){
     for(const m of alliance.members) sendToParticipant(m.id,'snapshot-invalidated',{})
     broadcastPublic('alliance-formed',alliance)
     broadcastPublic('stats-changed',{})
-  } else sendToParticipant(p.id,'snapshot-invalidated',{})
+  } else {
+    sendToParticipant(p.id,'snapshot-invalidated',{})
+    if(pending)sendToParticipant(pending.from_participant_id,'snapshot-invalidated',{})
+  }
   res.json({ok:true,alliance})
 }))
 
@@ -103,7 +114,7 @@ api.get('/public-state',handler((_req,res)=>{
   const event=getEventState()
   const reveal=event.phase==='TEAM_REVEALS'&&event.revealTeamId?revealState(event.revealTeamId,event.revealStep):null
   const base=(process.env.PUBLIC_BASE_URL||'').replace(/\/$/,'')
-  res.json({event,stats:stats(),recentAlliances:recentAlliances(),joinUrl:base||'/',reveal})
+  res.json({event,stats:projectorStats(),recentAlliances:recentAlliances(),joinUrl:base||'/',reveal})
 }))
 
 api.post('/admin/login',handler((req,res)=>res.json({token:login(String((req.body as any).pin||''))})))

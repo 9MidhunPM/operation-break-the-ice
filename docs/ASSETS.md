@@ -34,11 +34,9 @@ The same image is used both as the dominant character art and as the full-screen
 
 ## Rights / licensing
 
-Do not mass-download random search-engine images into this public repository.
+For this in-house orientation, organisers have approved the use of familiar third-party character, celebrity, sports, vehicle and food imagery. Cache selected images locally in the repository/deployment instead of hotlinking them so the event does not depend on third-party servers.
 
-For real people, use images the organisers have permission to use or assets with a suitable licence and retain attribution/licence records where required.
-
-For copyrighted fictional characters, supply event-authorised artwork separately rather than committing unverified third-party images here.
+Keep `config/assets-sources.json` when an automated source pass is used; it records where each cached image came from and makes bad matches easy to replace before the event.
 
 ## Asset manifest workflow
 

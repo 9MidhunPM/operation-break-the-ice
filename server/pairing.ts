@@ -13,9 +13,12 @@ function memberCount(allianceId: string): number {
 }
 
 function canJoinExistingAlliance(sender: ParticipantRow, target: ParticipantRow): boolean {
+  if (getEventState().phase !== 'PAIRING') return false
   const senderAlliance = allianceForParticipant(sender.id)
   const targetAlliance = allianceForParticipant(target.id)
   if (senderAlliance || !targetAlliance || targetAlliance.members.length !== 2) return false
+  const seniorJoined=!!db.prepare('SELECT 1 FROM participants WHERE team_id=? AND is_senior=1').get(sender.team_id)
+  if(!seniorJoined)return false
   const total = (db.prepare('SELECT COUNT(*) c FROM participants WHERE team_id=?').get(sender.team_id) as {c:number}).c
   const unpaired = (db.prepare(`SELECT COUNT(*) c FROM participants p WHERE p.team_id=? AND NOT EXISTS (SELECT 1 FROM alliance_members am WHERE am.participant_id=p.id)`).get(sender.team_id) as {c:number}).c
   return total % 2 === 1 && unpaired === 1
