@@ -1,0 +1,12 @@
+{
+  "seniors": [
+    {
+      "teamId": "marvel",
+      "characterId": "loki",
+      "displayName": "Senior Name",
+      "inviteToken": "replace-with-a-long-random-token",
+      "clue": "Add a clue the team can use during the hunt.",
+      "photoFile": "marvel.jpg"
+    }
+  ]
+}

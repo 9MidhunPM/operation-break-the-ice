@@ -1,102 +1,52 @@
-import type {
-  ClaimResponse,
-  MeResponse,
-  ReleaseResponse,
-  StatsResponse,
-  UpdateNameResponse,
-} from '@/types/api'
-import { getClientToken } from './clientToken'
+import type { ParticipantState, PublicEventSnapshot, TeamMemberChoice } from '@/types/game'
 
-/**
- * Thin fetch wrappers around the reservation API. Same origin (`/api/*`) in
- * both dev (Vite plugin) and prod (single Node server), so no base URL config.
- *
- * All methods throw a typed Error with a human-readable message on failure so
- * the UI can surface something friendly.
- */
+const PLAYER_TOKEN_KEY = 'break-the-ice-player-token-v2'
+const ADMIN_TOKEN_KEY = 'break-the-ice-admin-token-v2'
 
 export class ApiError extends Error {
-  status: number
-  constructor(message: string, status: number) {
-    super(message)
-    this.name = 'ApiError'
-    this.status = status
+  constructor(message: string, readonly status: number) { super(message) }
+}
+
+async function request<T>(url: string, init: RequestInit = {}): Promise<T> {
+  const res = await fetch(url, init)
+  const body = await res.json().catch(() => null) as { error?: string } | T | null
+  if (!res.ok) throw new ApiError((body && typeof body === 'object' && 'error' in body && body.error) || `Request failed (${res.status})`, res.status)
+  return body as T
+}
+
+export function getPlayerToken(): string {
+  let token = localStorage.getItem(PLAYER_TOKEN_KEY)
+  if (!token) {
+    token = crypto.randomUUID().replace(/-/g, '')
+    localStorage.setItem(PLAYER_TOKEN_KEY, token)
   }
+  return token
 }
 
-async function request<T>(
-  path: string,
-  init: RequestInit & { tokenInBody?: boolean; tokenHeader?: boolean } = {},
-): Promise<T> {
-  const { tokenInBody, tokenHeader, headers, ...rest } = init
-  const token = getClientToken()
-
-  const finalHeaders: Record<string, string> = {
-    'Content-Type': 'application/json',
-    ...(headers as Record<string, string> | undefined),
-  }
-  if (tokenHeader) finalHeaders['x-token'] = token
-
-  let body: BodyInit | undefined = rest.body ?? undefined
-  if (tokenInBody && body && typeof body === 'string') {
-    const parsed = JSON.parse(body) as Record<string, unknown>
-    body = JSON.stringify({ ...parsed, token })
-  }
-
-  let res: Response
-  try {
-    res = await fetch(path, { ...rest, headers: finalHeaders, body })
-  } catch {
-    throw new ApiError("Can't reach the game server. Check your Wi-Fi.", 0)
-  }
-
-  if (res.status === 204) return undefined as T
-  const text = await res.text()
-  const data = text ? JSON.parse(text) : undefined
-
-  if (!res.ok) {
-    const message =
-      (data && typeof data === 'object' && 'error' in data && typeof data.error === 'string'
-        ? data.error
-        : null) ?? 'Something went wrong.'
-    throw new ApiError(message, res.status)
-  }
-  return data as T
+function playerHeaders(json = false): HeadersInit {
+  return { 'x-player-token': getPlayerToken(), ...(json ? { 'content-type': 'application/json' } : {}) }
 }
 
-/** `POST /api/claim` — reserve a slot for this browser (idempotent). */
-export function claimSlot(): Promise<ClaimResponse> {
-  return request<ClaimResponse>('/api/claim', {
-    method: 'POST',
-    body: JSON.stringify({}),
-    tokenInBody: true,
-  })
+export function join(name: string, inviteToken?: string) {
+  return request<ParticipantState>('/api/join', { method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({clientToken:getPlayerToken(),name,inviteToken}) })
 }
+export function getMe() { return request<ParticipantState>('/api/me',{headers:playerHeaders()}) }
+export function createPairRequest(targetCode: string) { return request<{ok:true;id:string}>('/api/pair-requests',{method:'POST',headers:playerHeaders(true),body:JSON.stringify({targetCode})}) }
+export function cancelPairRequest(id: string) { return request('/api/pair-requests/'+encodeURIComponent(id),{method:'DELETE',headers:playerHeaders()}) }
+export function respondPairRequest(id: string, accept: boolean) { return request('/api/pair-requests/'+encodeURIComponent(id)+'/respond',{method:'POST',headers:playerHeaders(true),body:JSON.stringify({accept})}) }
+export function getTeamMembers() { return request<TeamMemberChoice[]>('/api/team-members',{headers:playerHeaders()}) }
+export function castVote(targetParticipantId:string){return request('/api/vote',{method:'PUT',headers:playerHeaders(true),body:JSON.stringify({targetParticipantId})})}
+export function getPublicState(){return request<PublicEventSnapshot>('/api/public-state')}
+export function cluePhotoUrl(){return `/api/me/clue-photo?token=${encodeURIComponent(getPlayerToken())}`}
 
-/** `GET /api/me` — restore/verify this browser's reservation. */
-export function getMe(): Promise<MeResponse> {
-  return request<MeResponse>('/api/me', { method: 'GET', tokenHeader: true })
-}
+export function playerEventSource() { return new EventSource(`/api/events?token=${encodeURIComponent(getPlayerToken())}`) }
+export function publicEventSource() { return new EventSource('/api/events?scope=public') }
 
-/** `PATCH /api/me/name` — update the display name only. */
-export function updateName(name: string): Promise<UpdateNameResponse> {
-  return request<UpdateNameResponse>('/api/me/name', {
-    method: 'PATCH',
-    body: JSON.stringify({ name }),
-    tokenInBody: true,
-  })
-}
-
-/** `POST /api/release` — PIN-gated reset; frees the slot for someone else. */
-export function releaseSession(pin: string): Promise<ReleaseResponse> {
-  return request<ReleaseResponse>('/api/release', {
-    method: 'POST',
-    body: JSON.stringify({ pin }),
-    tokenInBody: true,
-  })
-}
-
-/** `GET /api/stats` — read-only counts (used by /admin). */
-export function getStats(): Promise<StatsResponse> {
-  return request<StatsResponse>('/api/stats', { method: 'GET' })
-}
+export function getAdminToken(){return sessionStorage.getItem(ADMIN_TOKEN_KEY)}
+export function clearAdminToken(){sessionStorage.removeItem(ADMIN_TOKEN_KEY)}
+export async function adminLogin(pin:string){const r=await request<{token:string}>('/api/admin/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({pin})});sessionStorage.setItem(ADMIN_TOKEN_KEY,r.token);return r.token}
+function adminHeaders(json=false):HeadersInit{const token=getAdminToken();return{authorization:`Bearer ${token||''}`,...(json?{'content-type':'application/json'}:{})}}
+export function getAdminState<T>(){return request<T>('/api/admin/state',{headers:adminHeaders()})}
+export function adminSetPhase(phase:string,huntMinutes?:number){return request('/api/admin/phase',{method:'POST',headers:adminHeaders(true),body:JSON.stringify({phase,huntMinutes})})}
+export function adminSetReveal(teamId:string,step:'VOTE'|'ANSWER'){return request('/api/admin/reveal',{method:'POST',headers:adminHeaders(true),body:JSON.stringify({teamId,step})})}
+export function adminReset(){return request('/api/admin/reset',{method:'POST',headers:adminHeaders(true)})}

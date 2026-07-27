@@ -163,7 +163,6 @@ Conceptual tables:
 - `alliance_members`
 - `votes`
 - `event_state`
-- `event_log`
 
 ## UX contract — participant
 

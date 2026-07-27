@@ -94,3 +94,4 @@ Public teams and character identities live in `config/teams.json`.
 Real senior mappings, invite secrets and childhood photos are private server-side data and must not be committed or placed under `public/`.
 
 See [docs/SETUP.md](docs/SETUP.md) for event preparation.
+See [docs/ASSETS.md](docs/ASSETS.md) for the 588 configured artwork paths and curation workflow.
