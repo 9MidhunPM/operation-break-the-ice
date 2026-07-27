@@ -32,11 +32,14 @@ export function createPairRequest(sender: ParticipantRow, targetCode: string) {
   if (sender.team_id !== target.team_id) throw new Error('That participant is not in your team.')
   if (allianceForParticipant(sender.id)) throw new Error('You are already in an alliance.')
   if (allianceForParticipant(target.id) && !canJoinExistingAlliance(sender,target)) throw new Error('That participant already has an alliance.')
-  const pending = db.prepare(`SELECT 1 FROM pair_requests WHERE status='PENDING' AND (from_participant_id IN (?,?) OR to_participant_id IN (?,?)) AND expires_at > ?`).get(sender.id,target.id,sender.id,target.id,new Date().toISOString())
+  const now = new Date().toISOString()
+  const reciprocal = db.prepare(`SELECT id FROM pair_requests WHERE status='PENDING' AND from_participant_id=? AND to_participant_id=? AND expires_at > ?`).get(target.id,sender.id,now) as {id:string}|undefined
+  if (reciprocal) return { id: reciprocal.id, targetId: target.id, created: false }
+  const pending = db.prepare(`SELECT 1 FROM pair_requests WHERE status='PENDING' AND (from_participant_id IN (?,?) OR to_participant_id IN (?,?)) AND expires_at > ?`).get(sender.id,target.id,sender.id,target.id,now)
   if (pending) throw new Error('One of you already has a pending alliance request.')
   const request = { id:id('pr'), from:sender.id, to:target.id, created:new Date(), expires:new Date(Date.now()+120_000) }
   db.prepare(`INSERT INTO pair_requests (id,from_participant_id,to_participant_id,status,created_at,expires_at) VALUES (?,?,?,'PENDING',?,?)`).run(request.id,request.from,request.to,request.created.toISOString(),request.expires.toISOString())
-  return { id: request.id, targetId: target.id }
+  return { id: request.id, targetId: target.id, created: true }
 }
 
 export function respondPairRequest(target: ParticipantRow, requestId: string, accept: boolean): AllianceSummary | null {
@@ -46,7 +49,7 @@ export function respondPairRequest(target: ParticipantRow, requestId: string, ac
     if (!req || req.status !== 'PENDING') throw new Error('Pair request is no longer available.')
     if (new Date(req.expires_at).getTime() < Date.now()) {
       db.prepare(`UPDATE pair_requests SET status='EXPIRED' WHERE id=?`).run(requestId)
-      throw new Error('Pair request expired.')
+      return { expired: true } as const
     }
     if (!accept) {
       db.prepare(`UPDATE pair_requests SET status='DECLINED' WHERE id=?`).run(requestId)
@@ -73,7 +76,9 @@ export function respondPairRequest(target: ParticipantRow, requestId: string, ac
     db.prepare(`UPDATE pair_requests SET status=CASE WHEN id=? THEN 'ACCEPTED' ELSE 'EXPIRED' END WHERE status='PENDING' AND (from_participant_id IN (?,?) OR to_participant_id IN (?,?))`).run(requestId,sender.id,freshTarget.id,sender.id,freshTarget.id)
     return allianceForParticipant(sender.id)
   })
-  return tx()
+  const result=tx()
+  if (result && 'expired' in result) throw new Error('Pair request expired.')
+  return result
 }
 
 export function cancelPairRequest(sender: ParticipantRow, requestId: string) {

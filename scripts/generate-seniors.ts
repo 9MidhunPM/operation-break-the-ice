@@ -11,7 +11,7 @@ if(fs.existsSync(outPath)){
 }
 const base=(process.env.PUBLIC_BASE_URL||'http://localhost:5173').replace(/\/$/,'')
 const seniors=TEAMS.map((team,index)=>{
-  const character=team.characters[index%team.characters.length]!
+  const character=team.characters[crypto.randomInt(team.characters.length)]!
   const inviteToken=crypto.randomBytes(24).toString('base64url')
   return {teamId:team.id,characterId:character.id,displayName:`Senior ${String(index+1).padStart(2,'0')}`,inviteToken,clue:'One person in your team is not a junior. Talk to everyone and look for inconsistencies.',photoFile:`${team.id}.jpg`}
 })

@@ -26,7 +26,7 @@ function playerHeaders(json=false):HeadersInit{return{'x-player-token':getPlayer
 
 export function join(name:string,inviteToken?:string){return request<ParticipantState>('/api/join',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({clientToken:getPlayerToken(),name,inviteToken})})}
 export function getMe(){return request<ParticipantState>('/api/me',{headers:playerHeaders()})}
-export function createPairRequest(targetCode:string){return request<{ok:true;id:string}>('/api/pair-requests',{method:'POST',headers:playerHeaders(true),body:JSON.stringify({targetCode})})}
+export function createPairRequest(targetCode:string){return request<{ok:true;id:string;existingIncoming:boolean}>('/api/pair-requests',{method:'POST',headers:playerHeaders(true),body:JSON.stringify({targetCode})})}
 export function cancelPairRequest(id:string){return request('/api/pair-requests/'+encodeURIComponent(id),{method:'DELETE',headers:playerHeaders()})}
 export function respondPairRequest(id:string,accept:boolean){return request('/api/pair-requests/'+encodeURIComponent(id)+'/respond',{method:'POST',headers:playerHeaders(true),body:JSON.stringify({accept})})}
 export function getTeamMembers(){return request<TeamMemberChoice[]>('/api/team-members',{headers:playerHeaders()})}

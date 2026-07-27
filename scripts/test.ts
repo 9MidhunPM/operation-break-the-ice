@@ -55,6 +55,18 @@ const otherTeam=db.prepare('SELECT * FROM participants WHERE team_id<>? LIMIT 1'
 test('cross-team pair request is rejected',()=>mustThrow(()=>createPairRequest(rows[2]!,otherTeam.pair_code)))
 test('outgoing pair request can be cancelled',()=>{const r=createPairRequest(rows[2]!,rows[3]!.pair_code);cancelPairRequest(rows[2]!,r.id);const status=(db.prepare('SELECT status FROM pair_requests WHERE id=?').get(r.id) as {status:string}).status;assert.equal(status,'DECLINED')})
 
+const reciprocalTeamId=raw.teams[2]!.id
+const reciprocalRows=db.prepare('SELECT * FROM participants WHERE team_id=? ORDER BY joined_at').all(reciprocalTeamId) as any[]
+const reciprocalFirst=createPairRequest(reciprocalRows[0]!,reciprocalRows[1]!.pair_code)
+const reciprocalSecond=createPairRequest(reciprocalRows[1]!,reciprocalRows[0]!.pair_code)
+test('simultaneous reciprocal code entry collapses to one request',()=>{assert.equal(reciprocalFirst.created,true);assert.equal(reciprocalSecond.created,false);assert.equal(reciprocalSecond.id,reciprocalFirst.id);const pending=(db.prepare(`SELECT COUNT(*) c FROM pair_requests WHERE status='PENDING' AND (from_participant_id IN (?,?) OR to_participant_id IN (?,?))`).get(reciprocalRows[0]!.id,reciprocalRows[1]!.id,reciprocalRows[0]!.id,reciprocalRows[1]!.id) as {c:number}).c;assert.equal(pending,1)})
+test('a third teammate cannot interrupt an active pair request',()=>mustThrow(()=>createPairRequest(reciprocalRows[2]!,reciprocalRows[0]!.pair_code)))
+respondPairRequest(reciprocalRows[1]!,reciprocalFirst.id,false)
+test('declining a request immediately frees both people to pair again',()=>{const next=createPairRequest(reciprocalRows[0]!,reciprocalRows[1]!.pair_code);assert.equal(next.created,true);cancelPairRequest(reciprocalRows[0]!,next.id)})
+const expiring=createPairRequest(reciprocalRows[0]!,reciprocalRows[1]!.pair_code)
+db.prepare(`UPDATE pair_requests SET expires_at=? WHERE id=?`).run(new Date(Date.now()-5_000).toISOString(),expiring.id)
+test('expired request persists EXPIRED status and can be replaced',()=>{mustThrow(()=>respondPairRequest(reciprocalRows[1]!,expiring.id,true));const status=(db.prepare('SELECT status FROM pair_requests WHERE id=?').get(expiring.id) as {status:string}).status;assert.equal(status,'EXPIRED');const fresh=createPairRequest(reciprocalRows[0]!,reciprocalRows[1]!.pair_code);assert.equal(fresh.created,true);cancelPairRequest(reciprocalRows[0]!,fresh.id)})
+
 // Pair the remaining members of the first 21-person team, leaving exactly one person unpaired.
 for(let i=2;i<20;i+=2){const a=rows[i]!,b=rows[i+1]!;const r=createPairRequest(a,b.pair_code);respondPairRequest(b,r.id,true)}
 const leftover=rows[20]!

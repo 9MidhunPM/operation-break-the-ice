@@ -55,8 +55,9 @@ api.get('/events',handler((req,res)=>{
 api.post('/pair-requests',handler((req,res)=>{
   const p=player(req,res); if(!p)return
   const result=createPairRequest(p,String((req.body as any).targetCode||''))
-  sendToParticipant(result.targetId,'pair-request',{})
-  res.status(201).json({ok:true,id:result.id})
+  if(result.created)sendToParticipant(result.targetId,'pair-request',{})
+  else sendToParticipant(p.id,'snapshot-invalidated',{})
+  res.status(result.created?201:200).json({ok:true,id:result.id,existingIncoming:!result.created})
 }))
 
 api.delete('/pair-requests/:id',handler((req,res)=>{
@@ -73,7 +74,9 @@ api.post('/pair-requests/:id/respond',handler((req,res)=>{
   const p=player(req,res); if(!p)return
   const requestId=String(req.params.id)
   const pending=db.prepare(`SELECT from_participant_id FROM pair_requests WHERE id=? AND to_participant_id=?`).get(requestId,p.id) as {from_participant_id:string}|undefined
-  const alliance=respondPairRequest(p,requestId,Boolean((req.body as any).accept))
+  const accept=(req.body as any).accept
+  if(typeof accept!=='boolean')return error(res,400,'accept must be true or false.')
+  const alliance=respondPairRequest(p,requestId,accept)
   if(alliance){
     for(const m of alliance.members) sendToParticipant(m.id,'snapshot-invalidated',{})
     broadcastPublic('alliance-formed',alliance)
