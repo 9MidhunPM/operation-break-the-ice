@@ -1,173 +1,119 @@
 import express, { type Request, type Response } from 'express'
-import type {
-  ApiError,
-  ClaimResponse,
-  MeResponse,
-  ReleaseResponse,
-  StatsResponse,
-  UpdateNameResponse,
-} from '../src/types/api'
-import { SLOT_MAP, TEAMS } from '../src/data/teams'
-import { stmt } from './db'
-import { claimForToken, capacity, totalSlots, totalClaimed } from './slots'
+import fs from 'node:fs'
+import path from 'node:path'
+import { db } from './db'
+import { addListener, broadcastAll, broadcastPublic, sendToParticipant } from './events'
+import { joinParticipant, participantRowByToken, participantStateByToken } from './participants'
+import { cancelPairRequest, createPairRequest, respondPairRequest } from './pairing'
+import { getEventState } from './event-state'
+import { recentAlliances, revealState, stats } from './stats'
+import { adminSetPhase, adminSetReveal, adminState, login, requireAdmin, resetLiveEvent } from './admin'
+import { castParticipantVote, teamMembersForVoting } from './voting'
+import type { EventPhase, RevealStep } from '../src/types/game'
 
-/**
- * Organiser PIN used to authorise a reset/release. Sourced from env so it is
- * never shipped to the client bundle. Falls back to 220806 in dev.
- */
-const ORG_PIN = process.env.ORGANISER_PIN || '220806'
-if (!process.env.ORGANISER_PIN) {
-  // eslint-disable-next-line no-console
-  console.warn(
-    `[server] ORGANISER_PIN not set — using default "${ORG_PIN}". Set it in production.`,
-  )
-}
-
-const MAX_NAME = 24
-const TOKEN_RE = /^[A-Za-z0-9_-]{8,64}$/
-
-function sendError(res: Response<ApiError>, status: number, message: string) {
-  res.status(status).json({ error: message })
-}
-
-function validToken(token: unknown): token is string {
-  return typeof token === 'string' && TOKEN_RE.test(token)
-}
-
-function rowToClaimed(
-  row: { slot_id: string; name: string | null } | undefined,
-): {
-  slotId: string
-  teamId: string
-  teamName: string
-  teamImage: string
-  teamColor: string
-  characterId: string
-  characterName: string
-  characterImage: string
-  characterTagline?: string
-  pairCode: string
-  name?: string
-  existing: boolean
-} | null {
-  if (!row) return null
-  const slot = SLOT_MAP[row.slot_id.toUpperCase()]
-  if (!slot) return null
-  return {
-    slotId: slot.slotId,
-    teamId: slot.teamId,
-    teamName: slot.teamName,
-    teamImage: slot.teamImage,
-    teamColor: slot.teamColor,
-    characterId: slot.characterId,
-    characterName: slot.characterName,
-    characterImage: slot.characterImage,
-    characterTagline: slot.characterTagline,
-    pairCode: slot.pairCode,
-    name: row.name ?? undefined,
-    existing: true,
-  }
-}
-
-/** The Express app. Mounted under `/api` by both the Vite dev plugin and the
- *  standalone prod server. */
 export const api = express()
+api.use(express.json({ limit: '64kb' }))
 
-api.use(express.json())
+function error(res: Response, status: number, message: string) { return res.status(status).json({ error: message }) }
+function token(req: Request): string { return req.header('x-player-token') || String(req.query.token || '') }
+function player(req: Request, res: Response) {
+  const row=participantRowByToken(token(req))
+  if (!row) { error(res,401,'Participant session not found.'); return null }
+  return row
+}
+function handler(fn: (req:Request,res:Response)=>unknown) {
+  return (req:Request,res:Response)=>{try{void fn(req,res)}catch(e){error(res,400,e instanceof Error?e.message:'Request failed.')}}
+}
 
-// ---- POST /api/claim -------------------------------------------------------
-api.post('/claim', (req: Request, res: Response<ClaimResponse | ApiError>) => {
-  const { token } = req.body as { token?: unknown }
-  if (!validToken(token)) {
-    return sendError(res, 400, 'Invalid token.')
-  }
-  const result = claimForToken(token)
-  if (!result) {
-    return sendError(res, 503, 'All slots have been claimed.')
-  }
-  const { slot, existing } = result
-  const body: ClaimResponse = {
-    slotId: slot.slotId,
-    teamId: slot.teamId,
-    teamName: slot.teamName,
-    teamImage: slot.teamImage,
-    teamColor: slot.teamColor,
-    characterId: slot.characterId,
-    characterName: slot.characterName,
-    characterImage: slot.characterImage,
-    characterTagline: slot.characterTagline,
-    pairCode: slot.pairCode,
-    existing,
-  }
-  res.status(200).json(body)
-})
+api.get('/health',(_req,res)=>res.json({ok:true}))
 
-// ---- GET /api/me -----------------------------------------------------------
-api.get('/me', (req: Request, res: Response<MeResponse | ApiError>) => {
-  const token = req.header('x-token')
-  if (!validToken(token)) {
-    return sendError(res, 400, 'Invalid token.')
-  }
-  const row = stmt.getByToken.get(token)
-  const claimed = rowToClaimed(row)
-  if (!claimed) {
-    return sendError(res, 404, 'No reservation for this token.')
-  }
-  const { name, ...slotFields } = claimed
-  res.status(200).json({ ...slotFields, name })
-})
+api.post('/join',handler((req,res)=>{
+  const {clientToken,name,inviteToken}=req.body as any
+  const state=joinParticipant(String(clientToken||''),name,typeof inviteToken==='string'?inviteToken:undefined)
+  broadcastPublic('stats-changed',{})
+  res.json(state)
+}))
 
-// ---- PATCH /api/me/name ----------------------------------------------------
-api.patch('/me/name', (req: Request, res: Response<UpdateNameResponse | ApiError>) => {
-  const { token, name } = req.body as { token?: unknown; name?: unknown }
-  if (!validToken(token)) {
-    return sendError(res, 400, 'Invalid token.')
-  }
-  const trimmed = typeof name === 'string' ? name.trim() : ''
-  if (!trimmed) {
-    return sendError(res, 400, 'Name is required.')
-  }
-  if (trimmed.length > MAX_NAME) {
-    return sendError(res, 400, `Name must be under ${MAX_NAME} characters.`)
-  }
-  const row = stmt.getByToken.get(token)
-  if (!row) {
-    return sendError(res, 404, 'No reservation for this token.')
-  }
-  stmt.setName.run(trimmed, token)
-  res.status(200).json({ ok: true })
-})
+api.get('/me',handler((req,res)=>{
+  const state=participantStateByToken(token(req))
+  if (!state) return error(res,404,'No participant for this browser.')
+  res.json(state)
+}))
 
-// ---- POST /api/release (PIN-gated reset) ----------------------------------
-api.post('/release', (req: Request, res: Response<ReleaseResponse | ApiError>) => {
-  const { token, pin } = req.body as { token?: unknown; pin?: unknown }
-  if (!validToken(token)) {
-    return sendError(res, 400, 'Invalid token.')
-  }
-  if (typeof pin !== 'string' || pin !== ORG_PIN) {
-    return sendError(res, 403, 'Wrong PIN.')
-  }
-  stmt.deleteByToken.run(token)
-  res.status(200).json({ ok: true })
-})
+api.get('/events',handler((req,res)=>{
+  const row=participantRowByToken(token(req))
+  res.setHeader('Content-Type','text/event-stream')
+  res.setHeader('Cache-Control','no-cache, no-transform')
+  res.setHeader('Connection','keep-alive')
+  res.flushHeaders?.()
+  addListener(res,row?.id ?? null, String(req.query.scope||'participant') === 'public' ? 'public' : 'participant')
+}))
 
-// ---- GET /api/stats (read-only, for /admin) -------------------------------
-api.get('/stats', (_req: Request, res: Response<StatsResponse>) => {
-  const cap = capacity()
-  const total = totalSlots()
-  const joined = totalClaimed()
-  const rows = stmt.teamCounts.all()
-  const countsByTeam = new Map(rows.map((r) => [r.team_id, r.c]))
-  const perTeam = TEAMS.map((t) => ({
-    teamId: t.id,
-    teamName: t.name,
-    joined: countsByTeam.get(t.id) ?? 0,
-    capacity: cap,
-  }))
-  res.status(200).json({ joined, remaining: total - joined, total, perTeam })
-})
+api.post('/pair-requests',handler((req,res)=>{
+  const p=player(req,res); if(!p)return
+  const result=createPairRequest(p,String((req.body as any).targetCode||''))
+  sendToParticipant(result.targetId,'pair-request',{})
+  res.status(201).json({ok:true,id:result.id})
+}))
 
-// ---- Health check ----------------------------------------------------------
-api.get('/health', (_req, res) => {
-  res.status(200).json({ ok: true })
-})
+api.delete('/pair-requests/:id',handler((req,res)=>{
+  const p=player(req,res); if(!p)return
+  cancelPairRequest(p,String(req.params.id))
+  sendToParticipant(p.id,'snapshot-invalidated',{})
+  res.json({ok:true})
+}))
+
+api.post('/pair-requests/:id/respond',handler((req,res)=>{
+  const p=player(req,res); if(!p)return
+  const alliance=respondPairRequest(p,String(req.params.id),Boolean((req.body as any).accept))
+  if(alliance){
+    for(const m of alliance.members) sendToParticipant(m.id,'snapshot-invalidated',{})
+    broadcastPublic('alliance-formed',alliance)
+    broadcastPublic('stats-changed',{})
+  } else sendToParticipant(p.id,'snapshot-invalidated',{})
+  res.json({ok:true,alliance})
+}))
+
+api.get('/team-members',handler((req,res)=>{
+  const p=player(req,res); if(!p)return
+  res.json(teamMembersForVoting(p))
+}))
+
+api.put('/vote',handler((req,res)=>{
+  const p=player(req,res); if(!p)return
+  castParticipantVote(p,String((req.body as any).targetParticipantId||''))
+  broadcastPublic('vote-changed',{})
+  res.json({ok:true})
+}))
+
+api.get('/me/clue-photo',handler((req,res)=>{
+  const p=player(req,res); if(!p)return
+  const phase=getEventState().phase
+  if(!['HUNT_PHOTO','VOTING','VOTES_LOCKED','TEAM_REVEALS','FINISHED'].includes(phase))return error(res,403,'Photo clue is not available yet.')
+  const invite=db.prepare('SELECT photo_file FROM senior_invites WHERE team_id=?').get(p.team_id) as {photo_file:string|null}|undefined
+  if(!invite?.photo_file)return error(res,404,'Photo clue is not configured for this team.')
+  const base=path.resolve(process.env.PRIVATE_CONTENT_DIR||'./private/photos')
+  const file=path.resolve(base,invite.photo_file)
+  if(!file.startsWith(base+path.sep))return error(res,400,'Invalid private photo path.')
+  if(!fs.existsSync(file))return error(res,404,'Photo clue file is missing.')
+  res.sendFile(file)
+}))
+
+api.get('/public-state',handler((_req,res)=>{
+  const event=getEventState()
+  const reveal=event.phase==='TEAM_REVEALS'&&event.revealTeamId?revealState(event.revealTeamId,event.revealStep):null
+  const base=(process.env.PUBLIC_BASE_URL||'').replace(/\/$/,'')
+  res.json({event,stats:stats(),recentAlliances:recentAlliances(),joinUrl:base||'/',reveal})
+}))
+
+api.post('/admin/login',handler((req,res)=>res.json({token:login(String((req.body as any).pin||''))})))
+api.get('/admin/state',requireAdmin,handler((_req,res)=>res.json(adminState())))
+api.post('/admin/phase',requireAdmin,handler((req,res)=>{
+  const state=adminSetPhase(String((req.body as any).phase) as EventPhase,Number((req.body as any).huntMinutes)||undefined)
+  broadcastAll('phase-changed',state);broadcastPublic('stats-changed',{});res.json(state)
+}))
+api.post('/admin/reveal',requireAdmin,handler((req,res)=>{
+  const state=adminSetReveal(String((req.body as any).teamId),String((req.body as any).step) as RevealStep)
+  broadcastAll('reveal-changed',state);res.json(state)
+}))
+api.post('/admin/reset',requireAdmin,handler((_req,res)=>{resetLiveEvent();broadcastAll('phase-changed',getEventState());broadcastPublic('stats-changed',{});res.json({ok:true})}))

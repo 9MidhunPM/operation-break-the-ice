@@ -1,0 +1,3112 @@
+{
+  "teams": [
+    {
+      "id": "marvel",
+      "name": "Marvel",
+      "color": "#e62429",
+      "emoji": "🕷️",
+      "characters": [
+        {
+          "id": "spider-man",
+          "name": "Spider-Man",
+          "image": "/assets/characters/marvel/spider-man.webp"
+        },
+        {
+          "id": "iron-man",
+          "name": "Iron Man",
+          "image": "/assets/characters/marvel/iron-man.webp"
+        },
+        {
+          "id": "captain-america",
+          "name": "Captain America",
+          "image": "/assets/characters/marvel/captain-america.webp"
+        },
+        {
+          "id": "thor",
+          "name": "Thor",
+          "image": "/assets/characters/marvel/thor.webp"
+        },
+        {
+          "id": "hulk",
+          "name": "Hulk",
+          "image": "/assets/characters/marvel/hulk.webp"
+        },
+        {
+          "id": "black-widow",
+          "name": "Black Widow",
+          "image": "/assets/characters/marvel/black-widow.webp"
+        },
+        {
+          "id": "hawkeye",
+          "name": "Hawkeye",
+          "image": "/assets/characters/marvel/hawkeye.webp"
+        },
+        {
+          "id": "black-panther",
+          "name": "Black Panther",
+          "image": "/assets/characters/marvel/black-panther.webp"
+        },
+        {
+          "id": "doctor-strange",
+          "name": "Doctor Strange",
+          "image": "/assets/characters/marvel/doctor-strange.webp"
+        },
+        {
+          "id": "captain-marvel",
+          "name": "Captain Marvel",
+          "image": "/assets/characters/marvel/captain-marvel.webp"
+        },
+        {
+          "id": "scarlet-witch",
+          "name": "Scarlet Witch",
+          "image": "/assets/characters/marvel/scarlet-witch.webp"
+        },
+        {
+          "id": "vision",
+          "name": "Vision",
+          "image": "/assets/characters/marvel/vision.webp"
+        },
+        {
+          "id": "falcon",
+          "name": "Falcon",
+          "image": "/assets/characters/marvel/falcon.webp"
+        },
+        {
+          "id": "winter-soldier",
+          "name": "Winter Soldier",
+          "image": "/assets/characters/marvel/winter-soldier.webp"
+        },
+        {
+          "id": "war-machine",
+          "name": "War Machine",
+          "image": "/assets/characters/marvel/war-machine.webp"
+        },
+        {
+          "id": "ant-man",
+          "name": "Ant-Man",
+          "image": "/assets/characters/marvel/ant-man.webp"
+        },
+        {
+          "id": "wasp",
+          "name": "Wasp",
+          "image": "/assets/characters/marvel/wasp.webp"
+        },
+        {
+          "id": "star-lord",
+          "name": "Star-Lord",
+          "image": "/assets/characters/marvel/star-lord.webp"
+        },
+        {
+          "id": "gamora",
+          "name": "Gamora",
+          "image": "/assets/characters/marvel/gamora.webp"
+        },
+        {
+          "id": "drax",
+          "name": "Drax",
+          "image": "/assets/characters/marvel/drax.webp"
+        },
+        {
+          "id": "rocket",
+          "name": "Rocket",
+          "image": "/assets/characters/marvel/rocket.webp"
+        },
+        {
+          "id": "groot",
+          "name": "Groot",
+          "image": "/assets/characters/marvel/groot.webp"
+        },
+        {
+          "id": "wolverine",
+          "name": "Wolverine",
+          "image": "/assets/characters/marvel/wolverine.webp"
+        },
+        {
+          "id": "deadpool",
+          "name": "Deadpool",
+          "image": "/assets/characters/marvel/deadpool.webp"
+        },
+        {
+          "id": "loki",
+          "name": "Loki",
+          "image": "/assets/characters/marvel/loki.webp"
+        },
+        {
+          "id": "moon-knight",
+          "name": "Moon Knight",
+          "image": "/assets/characters/marvel/moon-knight.webp"
+        },
+        {
+          "id": "daredevil",
+          "name": "Daredevil",
+          "image": "/assets/characters/marvel/daredevil.webp"
+        },
+        {
+          "id": "shang-chi",
+          "name": "Shang-Chi",
+          "image": "/assets/characters/marvel/shang-chi.webp"
+        }
+      ]
+    },
+    {
+      "id": "dc",
+      "name": "DC",
+      "color": "#0476f2",
+      "emoji": "🦇",
+      "characters": [
+        {
+          "id": "batman",
+          "name": "Batman",
+          "image": "/assets/characters/dc/batman.webp"
+        },
+        {
+          "id": "superman",
+          "name": "Superman",
+          "image": "/assets/characters/dc/superman.webp"
+        },
+        {
+          "id": "wonder-woman",
+          "name": "Wonder Woman",
+          "image": "/assets/characters/dc/wonder-woman.webp"
+        },
+        {
+          "id": "flash",
+          "name": "Flash",
+          "image": "/assets/characters/dc/flash.webp"
+        },
+        {
+          "id": "aquaman",
+          "name": "Aquaman",
+          "image": "/assets/characters/dc/aquaman.webp"
+        },
+        {
+          "id": "green-lantern",
+          "name": "Green Lantern",
+          "image": "/assets/characters/dc/green-lantern.webp"
+        },
+        {
+          "id": "cyborg",
+          "name": "Cyborg",
+          "image": "/assets/characters/dc/cyborg.webp"
+        },
+        {
+          "id": "shazam",
+          "name": "Shazam",
+          "image": "/assets/characters/dc/shazam.webp"
+        },
+        {
+          "id": "green-arrow",
+          "name": "Green Arrow",
+          "image": "/assets/characters/dc/green-arrow.webp"
+        },
+        {
+          "id": "supergirl",
+          "name": "Supergirl",
+          "image": "/assets/characters/dc/supergirl.webp"
+        },
+        {
+          "id": "nightwing",
+          "name": "Nightwing",
+          "image": "/assets/characters/dc/nightwing.webp"
+        },
+        {
+          "id": "batgirl",
+          "name": "Batgirl",
+          "image": "/assets/characters/dc/batgirl.webp"
+        },
+        {
+          "id": "robin",
+          "name": "Robin",
+          "image": "/assets/characters/dc/robin.webp"
+        },
+        {
+          "id": "blue-beetle",
+          "name": "Blue Beetle",
+          "image": "/assets/characters/dc/blue-beetle.webp"
+        },
+        {
+          "id": "black-adam",
+          "name": "Black Adam",
+          "image": "/assets/characters/dc/black-adam.webp"
+        },
+        {
+          "id": "joker",
+          "name": "Joker",
+          "image": "/assets/characters/dc/joker.webp"
+        },
+        {
+          "id": "harley-quinn",
+          "name": "Harley Quinn",
+          "image": "/assets/characters/dc/harley-quinn.webp"
+        },
+        {
+          "id": "catwoman",
+          "name": "Catwoman",
+          "image": "/assets/characters/dc/catwoman.webp"
+        },
+        {
+          "id": "raven",
+          "name": "Raven",
+          "image": "/assets/characters/dc/raven.webp"
+        },
+        {
+          "id": "starfire",
+          "name": "Starfire",
+          "image": "/assets/characters/dc/starfire.webp"
+        },
+        {
+          "id": "beast-boy",
+          "name": "Beast Boy",
+          "image": "/assets/characters/dc/beast-boy.webp"
+        },
+        {
+          "id": "lex-luthor",
+          "name": "Lex Luthor",
+          "image": "/assets/characters/dc/lex-luthor.webp"
+        },
+        {
+          "id": "deathstroke",
+          "name": "Deathstroke",
+          "image": "/assets/characters/dc/deathstroke.webp"
+        },
+        {
+          "id": "doctor-fate",
+          "name": "Doctor Fate",
+          "image": "/assets/characters/dc/doctor-fate.webp"
+        },
+        {
+          "id": "constantine",
+          "name": "Constantine",
+          "image": "/assets/characters/dc/constantine.webp"
+        },
+        {
+          "id": "martian-manhunter",
+          "name": "Martian Manhunter",
+          "image": "/assets/characters/dc/martian-manhunter.webp"
+        },
+        {
+          "id": "peacemaker",
+          "name": "Peacemaker",
+          "image": "/assets/characters/dc/peacemaker.webp"
+        },
+        {
+          "id": "hawkman",
+          "name": "Hawkman",
+          "image": "/assets/characters/dc/hawkman.webp"
+        }
+      ]
+    },
+    {
+      "id": "pokemon",
+      "name": "Pokémon",
+      "color": "#ffcb05",
+      "emoji": "⚡",
+      "characters": [
+        {
+          "id": "pikachu",
+          "name": "Pikachu",
+          "image": "/assets/characters/pokemon/pikachu.webp"
+        },
+        {
+          "id": "charizard",
+          "name": "Charizard",
+          "image": "/assets/characters/pokemon/charizard.webp"
+        },
+        {
+          "id": "bulbasaur",
+          "name": "Bulbasaur",
+          "image": "/assets/characters/pokemon/bulbasaur.webp"
+        },
+        {
+          "id": "squirtle",
+          "name": "Squirtle",
+          "image": "/assets/characters/pokemon/squirtle.webp"
+        },
+        {
+          "id": "gengar",
+          "name": "Gengar",
+          "image": "/assets/characters/pokemon/gengar.webp"
+        },
+        {
+          "id": "lucario",
+          "name": "Lucario",
+          "image": "/assets/characters/pokemon/lucario.webp"
+        },
+        {
+          "id": "greninja",
+          "name": "Greninja",
+          "image": "/assets/characters/pokemon/greninja.webp"
+        },
+        {
+          "id": "mewtwo",
+          "name": "Mewtwo",
+          "image": "/assets/characters/pokemon/mewtwo.webp"
+        },
+        {
+          "id": "eevee",
+          "name": "Eevee",
+          "image": "/assets/characters/pokemon/eevee.webp"
+        },
+        {
+          "id": "snorlax",
+          "name": "Snorlax",
+          "image": "/assets/characters/pokemon/snorlax.webp"
+        },
+        {
+          "id": "dragonite",
+          "name": "Dragonite",
+          "image": "/assets/characters/pokemon/dragonite.webp"
+        },
+        {
+          "id": "garchomp",
+          "name": "Garchomp",
+          "image": "/assets/characters/pokemon/garchomp.webp"
+        },
+        {
+          "id": "psyduck",
+          "name": "Psyduck",
+          "image": "/assets/characters/pokemon/psyduck.webp"
+        },
+        {
+          "id": "jigglypuff",
+          "name": "Jigglypuff",
+          "image": "/assets/characters/pokemon/jigglypuff.webp"
+        },
+        {
+          "id": "meowth",
+          "name": "Meowth",
+          "image": "/assets/characters/pokemon/meowth.webp"
+        },
+        {
+          "id": "lapras",
+          "name": "Lapras",
+          "image": "/assets/characters/pokemon/lapras.webp"
+        },
+        {
+          "id": "arcanine",
+          "name": "Arcanine",
+          "image": "/assets/characters/pokemon/arcanine.webp"
+        },
+        {
+          "id": "machamp",
+          "name": "Machamp",
+          "image": "/assets/characters/pokemon/machamp.webp"
+        },
+        {
+          "id": "alakazam",
+          "name": "Alakazam",
+          "image": "/assets/characters/pokemon/alakazam.webp"
+        },
+        {
+          "id": "scizor",
+          "name": "Scizor",
+          "image": "/assets/characters/pokemon/scizor.webp"
+        },
+        {
+          "id": "tyranitar",
+          "name": "Tyranitar",
+          "image": "/assets/characters/pokemon/tyranitar.webp"
+        },
+        {
+          "id": "blaziken",
+          "name": "Blaziken",
+          "image": "/assets/characters/pokemon/blaziken.webp"
+        },
+        {
+          "id": "gardevoir",
+          "name": "Gardevoir",
+          "image": "/assets/characters/pokemon/gardevoir.webp"
+        },
+        {
+          "id": "rayquaza",
+          "name": "Rayquaza",
+          "image": "/assets/characters/pokemon/rayquaza.webp"
+        },
+        {
+          "id": "infernape",
+          "name": "Infernape",
+          "image": "/assets/characters/pokemon/infernape.webp"
+        },
+        {
+          "id": "zoroark",
+          "name": "Zoroark",
+          "image": "/assets/characters/pokemon/zoroark.webp"
+        },
+        {
+          "id": "sylveon",
+          "name": "Sylveon",
+          "image": "/assets/characters/pokemon/sylveon.webp"
+        },
+        {
+          "id": "mimikyu",
+          "name": "Mimikyu",
+          "image": "/assets/characters/pokemon/mimikyu.webp"
+        }
+      ]
+    },
+    {
+      "id": "anime",
+      "name": "Anime All-Stars",
+      "color": "#ff5a36",
+      "emoji": "🍥",
+      "characters": [
+        {
+          "id": "naruto",
+          "name": "Naruto",
+          "image": "/assets/characters/anime/naruto.webp"
+        },
+        {
+          "id": "sasuke",
+          "name": "Sasuke",
+          "image": "/assets/characters/anime/sasuke.webp"
+        },
+        {
+          "id": "luffy",
+          "name": "Luffy",
+          "image": "/assets/characters/anime/luffy.webp"
+        },
+        {
+          "id": "zoro",
+          "name": "Zoro",
+          "image": "/assets/characters/anime/zoro.webp"
+        },
+        {
+          "id": "goku",
+          "name": "Goku",
+          "image": "/assets/characters/anime/goku.webp"
+        },
+        {
+          "id": "vegeta",
+          "name": "Vegeta",
+          "image": "/assets/characters/anime/vegeta.webp"
+        },
+        {
+          "id": "gojo",
+          "name": "Gojo",
+          "image": "/assets/characters/anime/gojo.webp"
+        },
+        {
+          "id": "yuji",
+          "name": "Yuji",
+          "image": "/assets/characters/anime/yuji.webp"
+        },
+        {
+          "id": "tanjiro",
+          "name": "Tanjiro",
+          "image": "/assets/characters/anime/tanjiro.webp"
+        },
+        {
+          "id": "nezuko",
+          "name": "Nezuko",
+          "image": "/assets/characters/anime/nezuko.webp"
+        },
+        {
+          "id": "eren",
+          "name": "Eren",
+          "image": "/assets/characters/anime/eren.webp"
+        },
+        {
+          "id": "mikasa",
+          "name": "Mikasa",
+          "image": "/assets/characters/anime/mikasa.webp"
+        },
+        {
+          "id": "levi",
+          "name": "Levi",
+          "image": "/assets/characters/anime/levi.webp"
+        },
+        {
+          "id": "ichigo",
+          "name": "Ichigo",
+          "image": "/assets/characters/anime/ichigo.webp"
+        },
+        {
+          "id": "saitama",
+          "name": "Saitama",
+          "image": "/assets/characters/anime/saitama.webp"
+        },
+        {
+          "id": "genos",
+          "name": "Genos",
+          "image": "/assets/characters/anime/genos.webp"
+        },
+        {
+          "id": "edward-elric",
+          "name": "Edward Elric",
+          "image": "/assets/characters/anime/edward-elric.webp"
+        },
+        {
+          "id": "light-yagami",
+          "name": "Light Yagami",
+          "image": "/assets/characters/anime/light-yagami.webp"
+        },
+        {
+          "id": "l",
+          "name": "L",
+          "image": "/assets/characters/anime/l.webp"
+        },
+        {
+          "id": "spike-spiegel",
+          "name": "Spike Spiegel",
+          "image": "/assets/characters/anime/spike-spiegel.webp"
+        },
+        {
+          "id": "deku",
+          "name": "Deku",
+          "image": "/assets/characters/anime/deku.webp"
+        },
+        {
+          "id": "bakugo",
+          "name": "Bakugo",
+          "image": "/assets/characters/anime/bakugo.webp"
+        },
+        {
+          "id": "all-might",
+          "name": "All Might",
+          "image": "/assets/characters/anime/all-might.webp"
+        },
+        {
+          "id": "killua",
+          "name": "Killua",
+          "image": "/assets/characters/anime/killua.webp"
+        },
+        {
+          "id": "gon",
+          "name": "Gon",
+          "image": "/assets/characters/anime/gon.webp"
+        },
+        {
+          "id": "jotaro",
+          "name": "Jotaro",
+          "image": "/assets/characters/anime/jotaro.webp"
+        },
+        {
+          "id": "anya-forger",
+          "name": "Anya Forger",
+          "image": "/assets/characters/anime/anya-forger.webp"
+        },
+        {
+          "id": "frieren",
+          "name": "Frieren",
+          "image": "/assets/characters/anime/frieren.webp"
+        }
+      ]
+    },
+    {
+      "id": "wizarding",
+      "name": "Wizarding World",
+      "color": "#7c5cff",
+      "emoji": "🪄",
+      "characters": [
+        {
+          "id": "harry-potter",
+          "name": "Harry Potter",
+          "image": "/assets/characters/wizarding/harry-potter.webp"
+        },
+        {
+          "id": "hermione-granger",
+          "name": "Hermione Granger",
+          "image": "/assets/characters/wizarding/hermione-granger.webp"
+        },
+        {
+          "id": "ron-weasley",
+          "name": "Ron Weasley",
+          "image": "/assets/characters/wizarding/ron-weasley.webp"
+        },
+        {
+          "id": "draco-malfoy",
+          "name": "Draco Malfoy",
+          "image": "/assets/characters/wizarding/draco-malfoy.webp"
+        },
+        {
+          "id": "severus-snape",
+          "name": "Severus Snape",
+          "image": "/assets/characters/wizarding/severus-snape.webp"
+        },
+        {
+          "id": "albus-dumbledore",
+          "name": "Albus Dumbledore",
+          "image": "/assets/characters/wizarding/albus-dumbledore.webp"
+        },
+        {
+          "id": "sirius-black",
+          "name": "Sirius Black",
+          "image": "/assets/characters/wizarding/sirius-black.webp"
+        },
+        {
+          "id": "luna-lovegood",
+          "name": "Luna Lovegood",
+          "image": "/assets/characters/wizarding/luna-lovegood.webp"
+        },
+        {
+          "id": "rubeus-hagrid",
+          "name": "Rubeus Hagrid",
+          "image": "/assets/characters/wizarding/rubeus-hagrid.webp"
+        },
+        {
+          "id": "voldemort",
+          "name": "Voldemort",
+          "image": "/assets/characters/wizarding/voldemort.webp"
+        },
+        {
+          "id": "ginny-weasley",
+          "name": "Ginny Weasley",
+          "image": "/assets/characters/wizarding/ginny-weasley.webp"
+        },
+        {
+          "id": "neville-longbottom",
+          "name": "Neville Longbottom",
+          "image": "/assets/characters/wizarding/neville-longbottom.webp"
+        },
+        {
+          "id": "fred-weasley",
+          "name": "Fred Weasley",
+          "image": "/assets/characters/wizarding/fred-weasley.webp"
+        },
+        {
+          "id": "george-weasley",
+          "name": "George Weasley",
+          "image": "/assets/characters/wizarding/george-weasley.webp"
+        },
+        {
+          "id": "dobby",
+          "name": "Dobby",
+          "image": "/assets/characters/wizarding/dobby.webp"
+        },
+        {
+          "id": "minerva-mcgonagall",
+          "name": "Minerva McGonagall",
+          "image": "/assets/characters/wizarding/minerva-mcgonagall.webp"
+        },
+        {
+          "id": "remus-lupin",
+          "name": "Remus Lupin",
+          "image": "/assets/characters/wizarding/remus-lupin.webp"
+        },
+        {
+          "id": "bellatrix-lestrange",
+          "name": "Bellatrix Lestrange",
+          "image": "/assets/characters/wizarding/bellatrix-lestrange.webp"
+        },
+        {
+          "id": "cedric-diggory",
+          "name": "Cedric Diggory",
+          "image": "/assets/characters/wizarding/cedric-diggory.webp"
+        },
+        {
+          "id": "cho-chang",
+          "name": "Cho Chang",
+          "image": "/assets/characters/wizarding/cho-chang.webp"
+        },
+        {
+          "id": "molly-weasley",
+          "name": "Molly Weasley",
+          "image": "/assets/characters/wizarding/molly-weasley.webp"
+        },
+        {
+          "id": "arthur-weasley",
+          "name": "Arthur Weasley",
+          "image": "/assets/characters/wizarding/arthur-weasley.webp"
+        },
+        {
+          "id": "nymphadora-tonks",
+          "name": "Nymphadora Tonks",
+          "image": "/assets/characters/wizarding/nymphadora-tonks.webp"
+        },
+        {
+          "id": "mad-eye-moody",
+          "name": "Mad-Eye Moody",
+          "image": "/assets/characters/wizarding/mad-eye-moody.webp"
+        },
+        {
+          "id": "newt-scamander",
+          "name": "Newt Scamander",
+          "image": "/assets/characters/wizarding/newt-scamander.webp"
+        },
+        {
+          "id": "gellert-grindelwald",
+          "name": "Gellert Grindelwald",
+          "image": "/assets/characters/wizarding/gellert-grindelwald.webp"
+        },
+        {
+          "id": "fleur-delacour",
+          "name": "Fleur Delacour",
+          "image": "/assets/characters/wizarding/fleur-delacour.webp"
+        },
+        {
+          "id": "buckbeak",
+          "name": "Buckbeak",
+          "image": "/assets/characters/wizarding/buckbeak.webp"
+        }
+      ]
+    },
+    {
+      "id": "star-wars",
+      "name": "Star Wars",
+      "color": "#ffd54a",
+      "emoji": "🌌",
+      "characters": [
+        {
+          "id": "darth-vader",
+          "name": "Darth Vader",
+          "image": "/assets/characters/star-wars/darth-vader.webp"
+        },
+        {
+          "id": "luke-skywalker",
+          "name": "Luke Skywalker",
+          "image": "/assets/characters/star-wars/luke-skywalker.webp"
+        },
+        {
+          "id": "leia-organa",
+          "name": "Leia Organa",
+          "image": "/assets/characters/star-wars/leia-organa.webp"
+        },
+        {
+          "id": "han-solo",
+          "name": "Han Solo",
+          "image": "/assets/characters/star-wars/han-solo.webp"
+        },
+        {
+          "id": "yoda",
+          "name": "Yoda",
+          "image": "/assets/characters/star-wars/yoda.webp"
+        },
+        {
+          "id": "obi-wan-kenobi",
+          "name": "Obi-Wan Kenobi",
+          "image": "/assets/characters/star-wars/obi-wan-kenobi.webp"
+        },
+        {
+          "id": "ahsoka-tano",
+          "name": "Ahsoka Tano",
+          "image": "/assets/characters/star-wars/ahsoka-tano.webp"
+        },
+        {
+          "id": "grogu",
+          "name": "Grogu",
+          "image": "/assets/characters/star-wars/grogu.webp"
+        },
+        {
+          "id": "the-mandalorian",
+          "name": "The Mandalorian",
+          "image": "/assets/characters/star-wars/the-mandalorian.webp"
+        },
+        {
+          "id": "rey",
+          "name": "Rey",
+          "image": "/assets/characters/star-wars/rey.webp"
+        },
+        {
+          "id": "kylo-ren",
+          "name": "Kylo Ren",
+          "image": "/assets/characters/star-wars/kylo-ren.webp"
+        },
+        {
+          "id": "chewbacca",
+          "name": "Chewbacca",
+          "image": "/assets/characters/star-wars/chewbacca.webp"
+        },
+        {
+          "id": "r2-d2",
+          "name": "R2-D2",
+          "image": "/assets/characters/star-wars/r2-d2.webp"
+        },
+        {
+          "id": "c-3po",
+          "name": "C-3PO",
+          "image": "/assets/characters/star-wars/c-3po.webp"
+        },
+        {
+          "id": "boba-fett",
+          "name": "Boba Fett",
+          "image": "/assets/characters/star-wars/boba-fett.webp"
+        },
+        {
+          "id": "darth-maul",
+          "name": "Darth Maul",
+          "image": "/assets/characters/star-wars/darth-maul.webp"
+        },
+        {
+          "id": "palpatine",
+          "name": "Palpatine",
+          "image": "/assets/characters/star-wars/palpatine.webp"
+        },
+        {
+          "id": "mace-windu",
+          "name": "Mace Windu",
+          "image": "/assets/characters/star-wars/mace-windu.webp"
+        },
+        {
+          "id": "qui-gon-jinn",
+          "name": "Qui-Gon Jinn",
+          "image": "/assets/characters/star-wars/qui-gon-jinn.webp"
+        },
+        {
+          "id": "padm-amidala",
+          "name": "Padmé Amidala",
+          "image": "/assets/characters/star-wars/padm-amidala.webp"
+        },
+        {
+          "id": "lando-calrissian",
+          "name": "Lando Calrissian",
+          "image": "/assets/characters/star-wars/lando-calrissian.webp"
+        },
+        {
+          "id": "jyn-erso",
+          "name": "Jyn Erso",
+          "image": "/assets/characters/star-wars/jyn-erso.webp"
+        },
+        {
+          "id": "cassian-andor",
+          "name": "Cassian Andor",
+          "image": "/assets/characters/star-wars/cassian-andor.webp"
+        },
+        {
+          "id": "bo-katan",
+          "name": "Bo-Katan",
+          "image": "/assets/characters/star-wars/bo-katan.webp"
+        },
+        {
+          "id": "captain-rex",
+          "name": "Captain Rex",
+          "image": "/assets/characters/star-wars/captain-rex.webp"
+        },
+        {
+          "id": "poe-dameron",
+          "name": "Poe Dameron",
+          "image": "/assets/characters/star-wars/poe-dameron.webp"
+        },
+        {
+          "id": "finn",
+          "name": "Finn",
+          "image": "/assets/characters/star-wars/finn.webp"
+        },
+        {
+          "id": "admiral-ackbar",
+          "name": "Admiral Ackbar",
+          "image": "/assets/characters/star-wars/admiral-ackbar.webp"
+        }
+      ]
+    },
+    {
+      "id": "disney-pixar",
+      "name": "Disney + Pixar",
+      "color": "#45caff",
+      "emoji": "✨",
+      "characters": [
+        {
+          "id": "mickey-mouse",
+          "name": "Mickey Mouse",
+          "image": "/assets/characters/disney-pixar/mickey-mouse.webp"
+        },
+        {
+          "id": "minnie-mouse",
+          "name": "Minnie Mouse",
+          "image": "/assets/characters/disney-pixar/minnie-mouse.webp"
+        },
+        {
+          "id": "stitch",
+          "name": "Stitch",
+          "image": "/assets/characters/disney-pixar/stitch.webp"
+        },
+        {
+          "id": "elsa",
+          "name": "Elsa",
+          "image": "/assets/characters/disney-pixar/elsa.webp"
+        },
+        {
+          "id": "anna",
+          "name": "Anna",
+          "image": "/assets/characters/disney-pixar/anna.webp"
+        },
+        {
+          "id": "olaf",
+          "name": "Olaf",
+          "image": "/assets/characters/disney-pixar/olaf.webp"
+        },
+        {
+          "id": "woody",
+          "name": "Woody",
+          "image": "/assets/characters/disney-pixar/woody.webp"
+        },
+        {
+          "id": "buzz-lightyear",
+          "name": "Buzz Lightyear",
+          "image": "/assets/characters/disney-pixar/buzz-lightyear.webp"
+        },
+        {
+          "id": "jessie",
+          "name": "Jessie",
+          "image": "/assets/characters/disney-pixar/jessie.webp"
+        },
+        {
+          "id": "lightning-mcqueen",
+          "name": "Lightning McQueen",
+          "image": "/assets/characters/disney-pixar/lightning-mcqueen.webp"
+        },
+        {
+          "id": "mater",
+          "name": "Mater",
+          "image": "/assets/characters/disney-pixar/mater.webp"
+        },
+        {
+          "id": "moana",
+          "name": "Moana",
+          "image": "/assets/characters/disney-pixar/moana.webp"
+        },
+        {
+          "id": "maui",
+          "name": "Maui",
+          "image": "/assets/characters/disney-pixar/maui.webp"
+        },
+        {
+          "id": "simba",
+          "name": "Simba",
+          "image": "/assets/characters/disney-pixar/simba.webp"
+        },
+        {
+          "id": "nala",
+          "name": "Nala",
+          "image": "/assets/characters/disney-pixar/nala.webp"
+        },
+        {
+          "id": "timon",
+          "name": "Timon",
+          "image": "/assets/characters/disney-pixar/timon.webp"
+        },
+        {
+          "id": "pumbaa",
+          "name": "Pumbaa",
+          "image": "/assets/characters/disney-pixar/pumbaa.webp"
+        },
+        {
+          "id": "wall-e",
+          "name": "WALL-E",
+          "image": "/assets/characters/disney-pixar/wall-e.webp"
+        },
+        {
+          "id": "eve",
+          "name": "EVE",
+          "image": "/assets/characters/disney-pixar/eve.webp"
+        },
+        {
+          "id": "rapunzel",
+          "name": "Rapunzel",
+          "image": "/assets/characters/disney-pixar/rapunzel.webp"
+        },
+        {
+          "id": "flynn-rider",
+          "name": "Flynn Rider",
+          "image": "/assets/characters/disney-pixar/flynn-rider.webp"
+        },
+        {
+          "id": "remy",
+          "name": "Remy",
+          "image": "/assets/characters/disney-pixar/remy.webp"
+        },
+        {
+          "id": "sulley",
+          "name": "Sulley",
+          "image": "/assets/characters/disney-pixar/sulley.webp"
+        },
+        {
+          "id": "mike-wazowski",
+          "name": "Mike Wazowski",
+          "image": "/assets/characters/disney-pixar/mike-wazowski.webp"
+        },
+        {
+          "id": "joy",
+          "name": "Joy",
+          "image": "/assets/characters/disney-pixar/joy.webp"
+        },
+        {
+          "id": "miguel",
+          "name": "Miguel",
+          "image": "/assets/characters/disney-pixar/miguel.webp"
+        },
+        {
+          "id": "nemo",
+          "name": "Nemo",
+          "image": "/assets/characters/disney-pixar/nemo.webp"
+        },
+        {
+          "id": "dory",
+          "name": "Dory",
+          "image": "/assets/characters/disney-pixar/dory.webp"
+        }
+      ]
+    },
+    {
+      "id": "cartoon-network",
+      "name": "Cartoon Network",
+      "color": "#00d084",
+      "emoji": "📺",
+      "characters": [
+        {
+          "id": "ben-10",
+          "name": "Ben 10",
+          "image": "/assets/characters/cartoon-network/ben-10.webp"
+        },
+        {
+          "id": "courage",
+          "name": "Courage",
+          "image": "/assets/characters/cartoon-network/courage.webp"
+        },
+        {
+          "id": "dexter",
+          "name": "Dexter",
+          "image": "/assets/characters/cartoon-network/dexter.webp"
+        },
+        {
+          "id": "dee-dee",
+          "name": "Dee Dee",
+          "image": "/assets/characters/cartoon-network/dee-dee.webp"
+        },
+        {
+          "id": "johnny-bravo",
+          "name": "Johnny Bravo",
+          "image": "/assets/characters/cartoon-network/johnny-bravo.webp"
+        },
+        {
+          "id": "finn",
+          "name": "Finn",
+          "image": "/assets/characters/cartoon-network/finn.webp"
+        },
+        {
+          "id": "jake",
+          "name": "Jake",
+          "image": "/assets/characters/cartoon-network/jake.webp"
+        },
+        {
+          "id": "samurai-jack",
+          "name": "Samurai Jack",
+          "image": "/assets/characters/cartoon-network/samurai-jack.webp"
+        },
+        {
+          "id": "gumball",
+          "name": "Gumball",
+          "image": "/assets/characters/cartoon-network/gumball.webp"
+        },
+        {
+          "id": "darwin",
+          "name": "Darwin",
+          "image": "/assets/characters/cartoon-network/darwin.webp"
+        },
+        {
+          "id": "blossom",
+          "name": "Blossom",
+          "image": "/assets/characters/cartoon-network/blossom.webp"
+        },
+        {
+          "id": "bubbles",
+          "name": "Bubbles",
+          "image": "/assets/characters/cartoon-network/bubbles.webp"
+        },
+        {
+          "id": "buttercup",
+          "name": "Buttercup",
+          "image": "/assets/characters/cartoon-network/buttercup.webp"
+        },
+        {
+          "id": "mordecai",
+          "name": "Mordecai",
+          "image": "/assets/characters/cartoon-network/mordecai.webp"
+        },
+        {
+          "id": "rigby",
+          "name": "Rigby",
+          "image": "/assets/characters/cartoon-network/rigby.webp"
+        },
+        {
+          "id": "steven-universe",
+          "name": "Steven Universe",
+          "image": "/assets/characters/cartoon-network/steven-universe.webp"
+        },
+        {
+          "id": "garnet",
+          "name": "Garnet",
+          "image": "/assets/characters/cartoon-network/garnet.webp"
+        },
+        {
+          "id": "robin",
+          "name": "Robin",
+          "image": "/assets/characters/cartoon-network/robin.webp"
+        },
+        {
+          "id": "raven",
+          "name": "Raven",
+          "image": "/assets/characters/cartoon-network/raven.webp"
+        },
+        {
+          "id": "starfire",
+          "name": "Starfire",
+          "image": "/assets/characters/cartoon-network/starfire.webp"
+        },
+        {
+          "id": "beast-boy",
+          "name": "Beast Boy",
+          "image": "/assets/characters/cartoon-network/beast-boy.webp"
+        },
+        {
+          "id": "ed",
+          "name": "Ed",
+          "image": "/assets/characters/cartoon-network/ed.webp"
+        },
+        {
+          "id": "edd",
+          "name": "Edd",
+          "image": "/assets/characters/cartoon-network/edd.webp"
+        },
+        {
+          "id": "eddy",
+          "name": "Eddy",
+          "image": "/assets/characters/cartoon-network/eddy.webp"
+        },
+        {
+          "id": "grim",
+          "name": "Grim",
+          "image": "/assets/characters/cartoon-network/grim.webp"
+        },
+        {
+          "id": "billy",
+          "name": "Billy",
+          "image": "/assets/characters/cartoon-network/billy.webp"
+        },
+        {
+          "id": "mandy",
+          "name": "Mandy",
+          "image": "/assets/characters/cartoon-network/mandy.webp"
+        },
+        {
+          "id": "mojo-jojo",
+          "name": "Mojo Jojo",
+          "image": "/assets/characters/cartoon-network/mojo-jojo.webp"
+        }
+      ]
+    },
+    {
+      "id": "toon-legends",
+      "name": "Toon Legends",
+      "color": "#ff8a00",
+      "emoji": "🐭",
+      "characters": [
+        {
+          "id": "tom",
+          "name": "Tom",
+          "image": "/assets/characters/toon-legends/tom.webp"
+        },
+        {
+          "id": "jerry",
+          "name": "Jerry",
+          "image": "/assets/characters/toon-legends/jerry.webp"
+        },
+        {
+          "id": "scooby-doo",
+          "name": "Scooby-Doo",
+          "image": "/assets/characters/toon-legends/scooby-doo.webp"
+        },
+        {
+          "id": "shaggy",
+          "name": "Shaggy",
+          "image": "/assets/characters/toon-legends/shaggy.webp"
+        },
+        {
+          "id": "bugs-bunny",
+          "name": "Bugs Bunny",
+          "image": "/assets/characters/toon-legends/bugs-bunny.webp"
+        },
+        {
+          "id": "daffy-duck",
+          "name": "Daffy Duck",
+          "image": "/assets/characters/toon-legends/daffy-duck.webp"
+        },
+        {
+          "id": "tweety",
+          "name": "Tweety",
+          "image": "/assets/characters/toon-legends/tweety.webp"
+        },
+        {
+          "id": "sylvester",
+          "name": "Sylvester",
+          "image": "/assets/characters/toon-legends/sylvester.webp"
+        },
+        {
+          "id": "road-runner",
+          "name": "Road Runner",
+          "image": "/assets/characters/toon-legends/road-runner.webp"
+        },
+        {
+          "id": "wile-e-coyote",
+          "name": "Wile E. Coyote",
+          "image": "/assets/characters/toon-legends/wile-e-coyote.webp"
+        },
+        {
+          "id": "garfield",
+          "name": "Garfield",
+          "image": "/assets/characters/toon-legends/garfield.webp"
+        },
+        {
+          "id": "odie",
+          "name": "Odie",
+          "image": "/assets/characters/toon-legends/odie.webp"
+        },
+        {
+          "id": "popeye",
+          "name": "Popeye",
+          "image": "/assets/characters/toon-legends/popeye.webp"
+        },
+        {
+          "id": "olive-oyl",
+          "name": "Olive Oyl",
+          "image": "/assets/characters/toon-legends/olive-oyl.webp"
+        },
+        {
+          "id": "oggy",
+          "name": "Oggy",
+          "image": "/assets/characters/toon-legends/oggy.webp"
+        },
+        {
+          "id": "jack",
+          "name": "Jack",
+          "image": "/assets/characters/toon-legends/jack.webp"
+        },
+        {
+          "id": "mr-bean",
+          "name": "Mr. Bean",
+          "image": "/assets/characters/toon-legends/mr-bean.webp"
+        },
+        {
+          "id": "pink-panther",
+          "name": "Pink Panther",
+          "image": "/assets/characters/toon-legends/pink-panther.webp"
+        },
+        {
+          "id": "woody-woodpecker",
+          "name": "Woody Woodpecker",
+          "image": "/assets/characters/toon-legends/woody-woodpecker.webp"
+        },
+        {
+          "id": "spongebob",
+          "name": "SpongeBob",
+          "image": "/assets/characters/toon-legends/spongebob.webp"
+        },
+        {
+          "id": "patrick",
+          "name": "Patrick",
+          "image": "/assets/characters/toon-legends/patrick.webp"
+        },
+        {
+          "id": "squidward",
+          "name": "Squidward",
+          "image": "/assets/characters/toon-legends/squidward.webp"
+        },
+        {
+          "id": "doraemon",
+          "name": "Doraemon",
+          "image": "/assets/characters/toon-legends/doraemon.webp"
+        },
+        {
+          "id": "nobita",
+          "name": "Nobita",
+          "image": "/assets/characters/toon-legends/nobita.webp"
+        },
+        {
+          "id": "shin-chan",
+          "name": "Shin-chan",
+          "image": "/assets/characters/toon-legends/shin-chan.webp"
+        },
+        {
+          "id": "pingu",
+          "name": "Pingu",
+          "image": "/assets/characters/toon-legends/pingu.webp"
+        },
+        {
+          "id": "shaun-the-sheep",
+          "name": "Shaun the Sheep",
+          "image": "/assets/characters/toon-legends/shaun-the-sheep.webp"
+        },
+        {
+          "id": "chhota-bheem",
+          "name": "Chhota Bheem",
+          "image": "/assets/characters/toon-legends/chhota-bheem.webp"
+        }
+      ]
+    },
+    {
+      "id": "gaming",
+      "name": "Gaming Legends",
+      "color": "#8c52ff",
+      "emoji": "🎮",
+      "characters": [
+        {
+          "id": "mario",
+          "name": "Mario",
+          "image": "/assets/characters/gaming/mario.webp"
+        },
+        {
+          "id": "luigi",
+          "name": "Luigi",
+          "image": "/assets/characters/gaming/luigi.webp"
+        },
+        {
+          "id": "princess-peach",
+          "name": "Princess Peach",
+          "image": "/assets/characters/gaming/princess-peach.webp"
+        },
+        {
+          "id": "sonic",
+          "name": "Sonic",
+          "image": "/assets/characters/gaming/sonic.webp"
+        },
+        {
+          "id": "tails",
+          "name": "Tails",
+          "image": "/assets/characters/gaming/tails.webp"
+        },
+        {
+          "id": "kratos",
+          "name": "Kratos",
+          "image": "/assets/characters/gaming/kratos.webp"
+        },
+        {
+          "id": "atreus",
+          "name": "Atreus",
+          "image": "/assets/characters/gaming/atreus.webp"
+        },
+        {
+          "id": "lara-croft",
+          "name": "Lara Croft",
+          "image": "/assets/characters/gaming/lara-croft.webp"
+        },
+        {
+          "id": "master-chief",
+          "name": "Master Chief",
+          "image": "/assets/characters/gaming/master-chief.webp"
+        },
+        {
+          "id": "link",
+          "name": "Link",
+          "image": "/assets/characters/gaming/link.webp"
+        },
+        {
+          "id": "zelda",
+          "name": "Zelda",
+          "image": "/assets/characters/gaming/zelda.webp"
+        },
+        {
+          "id": "steve",
+          "name": "Steve",
+          "image": "/assets/characters/gaming/steve.webp"
+        },
+        {
+          "id": "alex",
+          "name": "Alex",
+          "image": "/assets/characters/gaming/alex.webp"
+        },
+        {
+          "id": "ezio-auditore",
+          "name": "Ezio Auditore",
+          "image": "/assets/characters/gaming/ezio-auditore.webp"
+        },
+        {
+          "id": "cj",
+          "name": "CJ",
+          "image": "/assets/characters/gaming/cj.webp"
+        },
+        {
+          "id": "arthur-morgan",
+          "name": "Arthur Morgan",
+          "image": "/assets/characters/gaming/arthur-morgan.webp"
+        },
+        {
+          "id": "geralt",
+          "name": "Geralt",
+          "image": "/assets/characters/gaming/geralt.webp"
+        },
+        {
+          "id": "aloy",
+          "name": "Aloy",
+          "image": "/assets/characters/gaming/aloy.webp"
+        },
+        {
+          "id": "nathan-drake",
+          "name": "Nathan Drake",
+          "image": "/assets/characters/gaming/nathan-drake.webp"
+        },
+        {
+          "id": "pac-man",
+          "name": "Pac-Man",
+          "image": "/assets/characters/gaming/pac-man.webp"
+        },
+        {
+          "id": "kirby",
+          "name": "Kirby",
+          "image": "/assets/characters/gaming/kirby.webp"
+        },
+        {
+          "id": "mega-man",
+          "name": "Mega Man",
+          "image": "/assets/characters/gaming/mega-man.webp"
+        },
+        {
+          "id": "ryu",
+          "name": "Ryu",
+          "image": "/assets/characters/gaming/ryu.webp"
+        },
+        {
+          "id": "chun-li",
+          "name": "Chun-Li",
+          "image": "/assets/characters/gaming/chun-li.webp"
+        },
+        {
+          "id": "scorpion",
+          "name": "Scorpion",
+          "image": "/assets/characters/gaming/scorpion.webp"
+        },
+        {
+          "id": "sub-zero",
+          "name": "Sub-Zero",
+          "image": "/assets/characters/gaming/sub-zero.webp"
+        },
+        {
+          "id": "agent-47",
+          "name": "Agent 47",
+          "image": "/assets/characters/gaming/agent-47.webp"
+        },
+        {
+          "id": "solid-snake",
+          "name": "Solid Snake",
+          "image": "/assets/characters/gaming/solid-snake.webp"
+        }
+      ]
+    },
+    {
+      "id": "football",
+      "name": "Football Icons",
+      "color": "#29b765",
+      "emoji": "⚽",
+      "characters": [
+        {
+          "id": "lionel-messi",
+          "name": "Lionel Messi",
+          "image": "/assets/characters/football/lionel-messi.webp"
+        },
+        {
+          "id": "cristiano-ronaldo",
+          "name": "Cristiano Ronaldo",
+          "image": "/assets/characters/football/cristiano-ronaldo.webp"
+        },
+        {
+          "id": "neymar",
+          "name": "Neymar",
+          "image": "/assets/characters/football/neymar.webp"
+        },
+        {
+          "id": "kylian-mbapp",
+          "name": "Kylian Mbappé",
+          "image": "/assets/characters/football/kylian-mbapp.webp"
+        },
+        {
+          "id": "erling-haaland",
+          "name": "Erling Haaland",
+          "image": "/assets/characters/football/erling-haaland.webp"
+        },
+        {
+          "id": "mohamed-salah",
+          "name": "Mohamed Salah",
+          "image": "/assets/characters/football/mohamed-salah.webp"
+        },
+        {
+          "id": "ronaldinho",
+          "name": "Ronaldinho",
+          "image": "/assets/characters/football/ronaldinho.webp"
+        },
+        {
+          "id": "zinedine-zidane",
+          "name": "Zinedine Zidane",
+          "image": "/assets/characters/football/zinedine-zidane.webp"
+        },
+        {
+          "id": "david-beckham",
+          "name": "David Beckham",
+          "image": "/assets/characters/football/david-beckham.webp"
+        },
+        {
+          "id": "luka-modri",
+          "name": "Luka Modrić",
+          "image": "/assets/characters/football/luka-modri.webp"
+        },
+        {
+          "id": "kevin-de-bruyne",
+          "name": "Kevin De Bruyne",
+          "image": "/assets/characters/football/kevin-de-bruyne.webp"
+        },
+        {
+          "id": "robert-lewandowski",
+          "name": "Robert Lewandowski",
+          "image": "/assets/characters/football/robert-lewandowski.webp"
+        },
+        {
+          "id": "karim-benzema",
+          "name": "Karim Benzema",
+          "image": "/assets/characters/football/karim-benzema.webp"
+        },
+        {
+          "id": "vin-cius-j-nior",
+          "name": "Vinícius Júnior",
+          "image": "/assets/characters/football/vin-cius-j-nior.webp"
+        },
+        {
+          "id": "jude-bellingham",
+          "name": "Jude Bellingham",
+          "image": "/assets/characters/football/jude-bellingham.webp"
+        },
+        {
+          "id": "harry-kane",
+          "name": "Harry Kane",
+          "image": "/assets/characters/football/harry-kane.webp"
+        },
+        {
+          "id": "sergio-ramos",
+          "name": "Sergio Ramos",
+          "image": "/assets/characters/football/sergio-ramos.webp"
+        },
+        {
+          "id": "manuel-neuer",
+          "name": "Manuel Neuer",
+          "image": "/assets/characters/football/manuel-neuer.webp"
+        },
+        {
+          "id": "thierry-henry",
+          "name": "Thierry Henry",
+          "image": "/assets/characters/football/thierry-henry.webp"
+        },
+        {
+          "id": "andr-s-iniesta",
+          "name": "Andrés Iniesta",
+          "image": "/assets/characters/football/andr-s-iniesta.webp"
+        },
+        {
+          "id": "xavi",
+          "name": "Xavi",
+          "image": "/assets/characters/football/xavi.webp"
+        },
+        {
+          "id": "kak",
+          "name": "Kaká",
+          "image": "/assets/characters/football/kak.webp"
+        },
+        {
+          "id": "paolo-maldini",
+          "name": "Paolo Maldini",
+          "image": "/assets/characters/football/paolo-maldini.webp"
+        },
+        {
+          "id": "ronaldo-naz-rio",
+          "name": "Ronaldo Nazário",
+          "image": "/assets/characters/football/ronaldo-naz-rio.webp"
+        },
+        {
+          "id": "wayne-rooney",
+          "name": "Wayne Rooney",
+          "image": "/assets/characters/football/wayne-rooney.webp"
+        },
+        {
+          "id": "luis-su-rez",
+          "name": "Luis Suárez",
+          "image": "/assets/characters/football/luis-su-rez.webp"
+        },
+        {
+          "id": "son-heung-min",
+          "name": "Son Heung-min",
+          "image": "/assets/characters/football/son-heung-min.webp"
+        },
+        {
+          "id": "virgil-van-dijk",
+          "name": "Virgil van Dijk",
+          "image": "/assets/characters/football/virgil-van-dijk.webp"
+        }
+      ]
+    },
+    {
+      "id": "cricket",
+      "name": "Cricket Icons",
+      "color": "#19a7ce",
+      "emoji": "🏏",
+      "characters": [
+        {
+          "id": "virat-kohli",
+          "name": "Virat Kohli",
+          "image": "/assets/characters/cricket/virat-kohli.webp"
+        },
+        {
+          "id": "ms-dhoni",
+          "name": "MS Dhoni",
+          "image": "/assets/characters/cricket/ms-dhoni.webp"
+        },
+        {
+          "id": "sachin-tendulkar",
+          "name": "Sachin Tendulkar",
+          "image": "/assets/characters/cricket/sachin-tendulkar.webp"
+        },
+        {
+          "id": "rohit-sharma",
+          "name": "Rohit Sharma",
+          "image": "/assets/characters/cricket/rohit-sharma.webp"
+        },
+        {
+          "id": "jasprit-bumrah",
+          "name": "Jasprit Bumrah",
+          "image": "/assets/characters/cricket/jasprit-bumrah.webp"
+        },
+        {
+          "id": "hardik-pandya",
+          "name": "Hardik Pandya",
+          "image": "/assets/characters/cricket/hardik-pandya.webp"
+        },
+        {
+          "id": "yuvraj-singh",
+          "name": "Yuvraj Singh",
+          "image": "/assets/characters/cricket/yuvraj-singh.webp"
+        },
+        {
+          "id": "virender-sehwag",
+          "name": "Virender Sehwag",
+          "image": "/assets/characters/cricket/virender-sehwag.webp"
+        },
+        {
+          "id": "rahul-dravid",
+          "name": "Rahul Dravid",
+          "image": "/assets/characters/cricket/rahul-dravid.webp"
+        },
+        {
+          "id": "sourav-ganguly",
+          "name": "Sourav Ganguly",
+          "image": "/assets/characters/cricket/sourav-ganguly.webp"
+        },
+        {
+          "id": "kapil-dev",
+          "name": "Kapil Dev",
+          "image": "/assets/characters/cricket/kapil-dev.webp"
+        },
+        {
+          "id": "ab-de-villiers",
+          "name": "AB de Villiers",
+          "image": "/assets/characters/cricket/ab-de-villiers.webp"
+        },
+        {
+          "id": "chris-gayle",
+          "name": "Chris Gayle",
+          "image": "/assets/characters/cricket/chris-gayle.webp"
+        },
+        {
+          "id": "brian-lara",
+          "name": "Brian Lara",
+          "image": "/assets/characters/cricket/brian-lara.webp"
+        },
+        {
+          "id": "ricky-ponting",
+          "name": "Ricky Ponting",
+          "image": "/assets/characters/cricket/ricky-ponting.webp"
+        },
+        {
+          "id": "shane-warne",
+          "name": "Shane Warne",
+          "image": "/assets/characters/cricket/shane-warne.webp"
+        },
+        {
+          "id": "muttiah-muralitharan",
+          "name": "Muttiah Muralitharan",
+          "image": "/assets/characters/cricket/muttiah-muralitharan.webp"
+        },
+        {
+          "id": "kane-williamson",
+          "name": "Kane Williamson",
+          "image": "/assets/characters/cricket/kane-williamson.webp"
+        },
+        {
+          "id": "joe-root",
+          "name": "Joe Root",
+          "image": "/assets/characters/cricket/joe-root.webp"
+        },
+        {
+          "id": "ben-stokes",
+          "name": "Ben Stokes",
+          "image": "/assets/characters/cricket/ben-stokes.webp"
+        },
+        {
+          "id": "steve-smith",
+          "name": "Steve Smith",
+          "image": "/assets/characters/cricket/steve-smith.webp"
+        },
+        {
+          "id": "pat-cummins",
+          "name": "Pat Cummins",
+          "image": "/assets/characters/cricket/pat-cummins.webp"
+        },
+        {
+          "id": "ravindra-jadeja",
+          "name": "Ravindra Jadeja",
+          "image": "/assets/characters/cricket/ravindra-jadeja.webp"
+        },
+        {
+          "id": "r-ashwin",
+          "name": "R Ashwin",
+          "image": "/assets/characters/cricket/r-ashwin.webp"
+        },
+        {
+          "id": "kl-rahul",
+          "name": "KL Rahul",
+          "image": "/assets/characters/cricket/kl-rahul.webp"
+        },
+        {
+          "id": "shubman-gill",
+          "name": "Shubman Gill",
+          "image": "/assets/characters/cricket/shubman-gill.webp"
+        },
+        {
+          "id": "suryakumar-yadav",
+          "name": "Suryakumar Yadav",
+          "image": "/assets/characters/cricket/suryakumar-yadav.webp"
+        },
+        {
+          "id": "sanju-samson",
+          "name": "Sanju Samson",
+          "image": "/assets/characters/cricket/sanju-samson.webp"
+        }
+      ]
+    },
+    {
+      "id": "wwe",
+      "name": "WWE",
+      "color": "#e53935",
+      "emoji": "🤼",
+      "characters": [
+        {
+          "id": "john-cena",
+          "name": "John Cena",
+          "image": "/assets/characters/wwe/john-cena.webp"
+        },
+        {
+          "id": "the-undertaker",
+          "name": "The Undertaker",
+          "image": "/assets/characters/wwe/the-undertaker.webp"
+        },
+        {
+          "id": "the-rock",
+          "name": "The Rock",
+          "image": "/assets/characters/wwe/the-rock.webp"
+        },
+        {
+          "id": "roman-reigns",
+          "name": "Roman Reigns",
+          "image": "/assets/characters/wwe/roman-reigns.webp"
+        },
+        {
+          "id": "randy-orton",
+          "name": "Randy Orton",
+          "image": "/assets/characters/wwe/randy-orton.webp"
+        },
+        {
+          "id": "rey-mysterio",
+          "name": "Rey Mysterio",
+          "image": "/assets/characters/wwe/rey-mysterio.webp"
+        },
+        {
+          "id": "triple-h",
+          "name": "Triple H",
+          "image": "/assets/characters/wwe/triple-h.webp"
+        },
+        {
+          "id": "cm-punk",
+          "name": "CM Punk",
+          "image": "/assets/characters/wwe/cm-punk.webp"
+        },
+        {
+          "id": "seth-rollins",
+          "name": "Seth Rollins",
+          "image": "/assets/characters/wwe/seth-rollins.webp"
+        },
+        {
+          "id": "becky-lynch",
+          "name": "Becky Lynch",
+          "image": "/assets/characters/wwe/becky-lynch.webp"
+        },
+        {
+          "id": "stone-cold",
+          "name": "Stone Cold",
+          "image": "/assets/characters/wwe/stone-cold.webp"
+        },
+        {
+          "id": "hulk-hogan",
+          "name": "Hulk Hogan",
+          "image": "/assets/characters/wwe/hulk-hogan.webp"
+        },
+        {
+          "id": "batista",
+          "name": "Batista",
+          "image": "/assets/characters/wwe/batista.webp"
+        },
+        {
+          "id": "brock-lesnar",
+          "name": "Brock Lesnar",
+          "image": "/assets/characters/wwe/brock-lesnar.webp"
+        },
+        {
+          "id": "edge",
+          "name": "Edge",
+          "image": "/assets/characters/wwe/edge.webp"
+        },
+        {
+          "id": "shawn-michaels",
+          "name": "Shawn Michaels",
+          "image": "/assets/characters/wwe/shawn-michaels.webp"
+        },
+        {
+          "id": "kane",
+          "name": "Kane",
+          "image": "/assets/characters/wwe/kane.webp"
+        },
+        {
+          "id": "cody-rhodes",
+          "name": "Cody Rhodes",
+          "image": "/assets/characters/wwe/cody-rhodes.webp"
+        },
+        {
+          "id": "drew-mcintyre",
+          "name": "Drew McIntyre",
+          "image": "/assets/characters/wwe/drew-mcintyre.webp"
+        },
+        {
+          "id": "aj-styles",
+          "name": "AJ Styles",
+          "image": "/assets/characters/wwe/aj-styles.webp"
+        },
+        {
+          "id": "finn-b-lor",
+          "name": "Finn Bálor",
+          "image": "/assets/characters/wwe/finn-b-lor.webp"
+        },
+        {
+          "id": "rhea-ripley",
+          "name": "Rhea Ripley",
+          "image": "/assets/characters/wwe/rhea-ripley.webp"
+        },
+        {
+          "id": "bianca-belair",
+          "name": "Bianca Belair",
+          "image": "/assets/characters/wwe/bianca-belair.webp"
+        },
+        {
+          "id": "charlotte-flair",
+          "name": "Charlotte Flair",
+          "image": "/assets/characters/wwe/charlotte-flair.webp"
+        },
+        {
+          "id": "bayley",
+          "name": "Bayley",
+          "image": "/assets/characters/wwe/bayley.webp"
+        },
+        {
+          "id": "the-miz",
+          "name": "The Miz",
+          "image": "/assets/characters/wwe/the-miz.webp"
+        },
+        {
+          "id": "jeff-hardy",
+          "name": "Jeff Hardy",
+          "image": "/assets/characters/wwe/jeff-hardy.webp"
+        },
+        {
+          "id": "gunther",
+          "name": "Gunther",
+          "image": "/assets/characters/wwe/gunther.webp"
+        }
+      ]
+    },
+    {
+      "id": "formula-1",
+      "name": "Formula 1",
+      "color": "#ff1801",
+      "emoji": "🏎️",
+      "characters": [
+        {
+          "id": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "image": "/assets/characters/formula-1/lewis-hamilton.webp"
+        },
+        {
+          "id": "max-verstappen",
+          "name": "Max Verstappen",
+          "image": "/assets/characters/formula-1/max-verstappen.webp"
+        },
+        {
+          "id": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "image": "/assets/characters/formula-1/charles-leclerc.webp"
+        },
+        {
+          "id": "lando-norris",
+          "name": "Lando Norris",
+          "image": "/assets/characters/formula-1/lando-norris.webp"
+        },
+        {
+          "id": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "image": "/assets/characters/formula-1/fernando-alonso.webp"
+        },
+        {
+          "id": "michael-schumacher",
+          "name": "Michael Schumacher",
+          "image": "/assets/characters/formula-1/michael-schumacher.webp"
+        },
+        {
+          "id": "ayrton-senna",
+          "name": "Ayrton Senna",
+          "image": "/assets/characters/formula-1/ayrton-senna.webp"
+        },
+        {
+          "id": "sebastian-vettel",
+          "name": "Sebastian Vettel",
+          "image": "/assets/characters/formula-1/sebastian-vettel.webp"
+        },
+        {
+          "id": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "image": "/assets/characters/formula-1/oscar-piastri.webp"
+        },
+        {
+          "id": "george-russell",
+          "name": "George Russell",
+          "image": "/assets/characters/formula-1/george-russell.webp"
+        },
+        {
+          "id": "carlos-sainz",
+          "name": "Carlos Sainz",
+          "image": "/assets/characters/formula-1/carlos-sainz.webp"
+        },
+        {
+          "id": "kimi-r-ikk-nen",
+          "name": "Kimi Räikkönen",
+          "image": "/assets/characters/formula-1/kimi-r-ikk-nen.webp"
+        },
+        {
+          "id": "daniel-ricciardo",
+          "name": "Daniel Ricciardo",
+          "image": "/assets/characters/formula-1/daniel-ricciardo.webp"
+        },
+        {
+          "id": "mika-h-kkinen",
+          "name": "Mika Häkkinen",
+          "image": "/assets/characters/formula-1/mika-h-kkinen.webp"
+        },
+        {
+          "id": "alain-prost",
+          "name": "Alain Prost",
+          "image": "/assets/characters/formula-1/alain-prost.webp"
+        },
+        {
+          "id": "niki-lauda",
+          "name": "Niki Lauda",
+          "image": "/assets/characters/formula-1/niki-lauda.webp"
+        },
+        {
+          "id": "nigel-mansell",
+          "name": "Nigel Mansell",
+          "image": "/assets/characters/formula-1/nigel-mansell.webp"
+        },
+        {
+          "id": "jenson-button",
+          "name": "Jenson Button",
+          "image": "/assets/characters/formula-1/jenson-button.webp"
+        },
+        {
+          "id": "felipe-massa",
+          "name": "Felipe Massa",
+          "image": "/assets/characters/formula-1/felipe-massa.webp"
+        },
+        {
+          "id": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "image": "/assets/characters/formula-1/valtteri-bottas.webp"
+        },
+        {
+          "id": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "image": "/assets/characters/formula-1/pierre-gasly.webp"
+        },
+        {
+          "id": "alex-albon",
+          "name": "Alex Albon",
+          "image": "/assets/characters/formula-1/alex-albon.webp"
+        },
+        {
+          "id": "yuki-tsunoda",
+          "name": "Yuki Tsunoda",
+          "image": "/assets/characters/formula-1/yuki-tsunoda.webp"
+        },
+        {
+          "id": "nico-rosberg",
+          "name": "Nico Rosberg",
+          "image": "/assets/characters/formula-1/nico-rosberg.webp"
+        },
+        {
+          "id": "juan-pablo-montoya",
+          "name": "Juan Pablo Montoya",
+          "image": "/assets/characters/formula-1/juan-pablo-montoya.webp"
+        },
+        {
+          "id": "rubens-barrichello",
+          "name": "Rubens Barrichello",
+          "image": "/assets/characters/formula-1/rubens-barrichello.webp"
+        },
+        {
+          "id": "jacques-villeneuve",
+          "name": "Jacques Villeneuve",
+          "image": "/assets/characters/formula-1/jacques-villeneuve.webp"
+        },
+        {
+          "id": "david-coulthard",
+          "name": "David Coulthard",
+          "image": "/assets/characters/formula-1/david-coulthard.webp"
+        }
+      ]
+    },
+    {
+      "id": "mollywood-stars",
+      "name": "Mollywood Stars",
+      "color": "#d946ef",
+      "emoji": "🎬",
+      "characters": [
+        {
+          "id": "mohanlal",
+          "name": "Mohanlal",
+          "image": "/assets/characters/mollywood-stars/mohanlal.webp"
+        },
+        {
+          "id": "mammootty",
+          "name": "Mammootty",
+          "image": "/assets/characters/mollywood-stars/mammootty.webp"
+        },
+        {
+          "id": "fahadh-faasil",
+          "name": "Fahadh Faasil",
+          "image": "/assets/characters/mollywood-stars/fahadh-faasil.webp"
+        },
+        {
+          "id": "dulquer-salmaan",
+          "name": "Dulquer Salmaan",
+          "image": "/assets/characters/mollywood-stars/dulquer-salmaan.webp"
+        },
+        {
+          "id": "prithviraj-sukumaran",
+          "name": "Prithviraj Sukumaran",
+          "image": "/assets/characters/mollywood-stars/prithviraj-sukumaran.webp"
+        },
+        {
+          "id": "tovino-thomas",
+          "name": "Tovino Thomas",
+          "image": "/assets/characters/mollywood-stars/tovino-thomas.webp"
+        },
+        {
+          "id": "nivin-pauly",
+          "name": "Nivin Pauly",
+          "image": "/assets/characters/mollywood-stars/nivin-pauly.webp"
+        },
+        {
+          "id": "asif-ali",
+          "name": "Asif Ali",
+          "image": "/assets/characters/mollywood-stars/asif-ali.webp"
+        },
+        {
+          "id": "basil-joseph",
+          "name": "Basil Joseph",
+          "image": "/assets/characters/mollywood-stars/basil-joseph.webp"
+        },
+        {
+          "id": "shane-nigam",
+          "name": "Shane Nigam",
+          "image": "/assets/characters/mollywood-stars/shane-nigam.webp"
+        },
+        {
+          "id": "soubin-shahir",
+          "name": "Soubin Shahir",
+          "image": "/assets/characters/mollywood-stars/soubin-shahir.webp"
+        },
+        {
+          "id": "kunchacko-boban",
+          "name": "Kunchacko Boban",
+          "image": "/assets/characters/mollywood-stars/kunchacko-boban.webp"
+        },
+        {
+          "id": "biju-menon",
+          "name": "Biju Menon",
+          "image": "/assets/characters/mollywood-stars/biju-menon.webp"
+        },
+        {
+          "id": "jayaram",
+          "name": "Jayaram",
+          "image": "/assets/characters/mollywood-stars/jayaram.webp"
+        },
+        {
+          "id": "indrajith-sukumaran",
+          "name": "Indrajith Sukumaran",
+          "image": "/assets/characters/mollywood-stars/indrajith-sukumaran.webp"
+        },
+        {
+          "id": "manju-warrier",
+          "name": "Manju Warrier",
+          "image": "/assets/characters/mollywood-stars/manju-warrier.webp"
+        },
+        {
+          "id": "nazriya-nazim",
+          "name": "Nazriya Nazim",
+          "image": "/assets/characters/mollywood-stars/nazriya-nazim.webp"
+        },
+        {
+          "id": "parvathy-thiruvothu",
+          "name": "Parvathy Thiruvothu",
+          "image": "/assets/characters/mollywood-stars/parvathy-thiruvothu.webp"
+        },
+        {
+          "id": "aishwarya-lekshmi",
+          "name": "Aishwarya Lekshmi",
+          "image": "/assets/characters/mollywood-stars/aishwarya-lekshmi.webp"
+        },
+        {
+          "id": "nithya-menen",
+          "name": "Nithya Menen",
+          "image": "/assets/characters/mollywood-stars/nithya-menen.webp"
+        },
+        {
+          "id": "anna-ben",
+          "name": "Anna Ben",
+          "image": "/assets/characters/mollywood-stars/anna-ben.webp"
+        },
+        {
+          "id": "anaswara-rajan",
+          "name": "Anaswara Rajan",
+          "image": "/assets/characters/mollywood-stars/anaswara-rajan.webp"
+        },
+        {
+          "id": "mamitha-baiju",
+          "name": "Mamitha Baiju",
+          "image": "/assets/characters/mollywood-stars/mamitha-baiju.webp"
+        },
+        {
+          "id": "grace-antony",
+          "name": "Grace Antony",
+          "image": "/assets/characters/mollywood-stars/grace-antony.webp"
+        },
+        {
+          "id": "rajisha-vijayan",
+          "name": "Rajisha Vijayan",
+          "image": "/assets/characters/mollywood-stars/rajisha-vijayan.webp"
+        },
+        {
+          "id": "nimisha-sajayan",
+          "name": "Nimisha Sajayan",
+          "image": "/assets/characters/mollywood-stars/nimisha-sajayan.webp"
+        },
+        {
+          "id": "samyuktha-menon",
+          "name": "Samyuktha Menon",
+          "image": "/assets/characters/mollywood-stars/samyuktha-menon.webp"
+        },
+        {
+          "id": "kalyani-priyadarshan",
+          "name": "Kalyani Priyadarshan",
+          "image": "/assets/characters/mollywood-stars/kalyani-priyadarshan.webp"
+        }
+      ]
+    },
+    {
+      "id": "malayalam-characters",
+      "name": "Malayalam Characters",
+      "color": "#f59e0b",
+      "emoji": "🎭",
+      "characters": [
+        {
+          "id": "aadu-thoma",
+          "name": "Aadu Thoma",
+          "image": "/assets/characters/malayalam-characters/aadu-thoma.webp"
+        },
+        {
+          "id": "mangalassery-neelakandan",
+          "name": "Mangalassery Neelakandan",
+          "image": "/assets/characters/malayalam-characters/mangalassery-neelakandan.webp"
+        },
+        {
+          "id": "cid-moosa",
+          "name": "CID Moosa",
+          "image": "/assets/characters/malayalam-characters/cid-moosa.webp"
+        },
+        {
+          "id": "georgekutty",
+          "name": "Georgekutty",
+          "image": "/assets/characters/malayalam-characters/georgekutty.webp"
+        },
+        {
+          "id": "dasan",
+          "name": "Dasan",
+          "image": "/assets/characters/malayalam-characters/dasan.webp"
+        },
+        {
+          "id": "vijayan",
+          "name": "Vijayan",
+          "image": "/assets/characters/malayalam-characters/vijayan.webp"
+        },
+        {
+          "id": "ramanan",
+          "name": "Ramanan",
+          "image": "/assets/characters/malayalam-characters/ramanan.webp"
+        },
+        {
+          "id": "sagar-alias-jacky",
+          "name": "Sagar Alias Jacky",
+          "image": "/assets/characters/malayalam-characters/sagar-alias-jacky.webp"
+        },
+        {
+          "id": "narasimham",
+          "name": "Narasimham",
+          "image": "/assets/characters/malayalam-characters/narasimham.webp"
+        },
+        {
+          "id": "bellary-raja",
+          "name": "Bellary Raja",
+          "image": "/assets/characters/malayalam-characters/bellary-raja.webp"
+        },
+        {
+          "id": "ayyappan-nair",
+          "name": "Ayyappan Nair",
+          "image": "/assets/characters/malayalam-characters/ayyappan-nair.webp"
+        },
+        {
+          "id": "koshi-kurien",
+          "name": "Koshi Kurien",
+          "image": "/assets/characters/malayalam-characters/koshi-kurien.webp"
+        },
+        {
+          "id": "shaji-pappan",
+          "name": "Shaji Pappan",
+          "image": "/assets/characters/malayalam-characters/shaji-pappan.webp"
+        },
+        {
+          "id": "mahesh-bhavana",
+          "name": "Mahesh Bhavana",
+          "image": "/assets/characters/malayalam-characters/mahesh-bhavana.webp"
+        },
+        {
+          "id": "prakashan",
+          "name": "Prakashan",
+          "image": "/assets/characters/malayalam-characters/prakashan.webp"
+        },
+        {
+          "id": "joji",
+          "name": "Joji",
+          "image": "/assets/characters/malayalam-characters/joji.webp"
+        },
+        {
+          "id": "minnal-murali",
+          "name": "Minnal Murali",
+          "image": "/assets/characters/malayalam-characters/minnal-murali.webp"
+        },
+        {
+          "id": "jaison",
+          "name": "Jaison",
+          "image": "/assets/characters/malayalam-characters/jaison.webp"
+        },
+        {
+          "id": "udayan",
+          "name": "Udayan",
+          "image": "/assets/characters/malayalam-characters/udayan.webp"
+        },
+        {
+          "id": "rajappan",
+          "name": "Rajappan",
+          "image": "/assets/characters/malayalam-characters/rajappan.webp"
+        },
+        {
+          "id": "appukuttan",
+          "name": "Appukuttan",
+          "image": "/assets/characters/malayalam-characters/appukuttan.webp"
+        },
+        {
+          "id": "mannar-mathai",
+          "name": "Mannar Mathai",
+          "image": "/assets/characters/malayalam-characters/mannar-mathai.webp"
+        },
+        {
+          "id": "ganga",
+          "name": "Ganga",
+          "image": "/assets/characters/malayalam-characters/ganga.webp"
+        },
+        {
+          "id": "nagavalli",
+          "name": "Nagavalli",
+          "image": "/assets/characters/malayalam-characters/nagavalli.webp"
+        },
+        {
+          "id": "kuttan",
+          "name": "Kuttan",
+          "image": "/assets/characters/malayalam-characters/kuttan.webp"
+        },
+        {
+          "id": "arjun-ashokan",
+          "name": "Arjun Ashokan",
+          "image": "/assets/characters/malayalam-characters/arjun-ashokan.webp"
+        },
+        {
+          "id": "binu-thrivikraman",
+          "name": "Binu Thrivikraman",
+          "image": "/assets/characters/malayalam-characters/binu-thrivikraman.webp"
+        },
+        {
+          "id": "pachu",
+          "name": "Pachu",
+          "image": "/assets/characters/malayalam-characters/pachu.webp"
+        }
+      ]
+    },
+    {
+      "id": "south-cinema",
+      "name": "South Cinema",
+      "color": "#ef4444",
+      "emoji": "🎞️",
+      "characters": [
+        {
+          "id": "rajinikanth",
+          "name": "Rajinikanth",
+          "image": "/assets/characters/south-cinema/rajinikanth.webp"
+        },
+        {
+          "id": "vijay",
+          "name": "Vijay",
+          "image": "/assets/characters/south-cinema/vijay.webp"
+        },
+        {
+          "id": "ajith-kumar",
+          "name": "Ajith Kumar",
+          "image": "/assets/characters/south-cinema/ajith-kumar.webp"
+        },
+        {
+          "id": "suriya",
+          "name": "Suriya",
+          "image": "/assets/characters/south-cinema/suriya.webp"
+        },
+        {
+          "id": "dhanush",
+          "name": "Dhanush",
+          "image": "/assets/characters/south-cinema/dhanush.webp"
+        },
+        {
+          "id": "vikram",
+          "name": "Vikram",
+          "image": "/assets/characters/south-cinema/vikram.webp"
+        },
+        {
+          "id": "kamal-haasan",
+          "name": "Kamal Haasan",
+          "image": "/assets/characters/south-cinema/kamal-haasan.webp"
+        },
+        {
+          "id": "vijay-sethupathi",
+          "name": "Vijay Sethupathi",
+          "image": "/assets/characters/south-cinema/vijay-sethupathi.webp"
+        },
+        {
+          "id": "allu-arjun",
+          "name": "Allu Arjun",
+          "image": "/assets/characters/south-cinema/allu-arjun.webp"
+        },
+        {
+          "id": "prabhas",
+          "name": "Prabhas",
+          "image": "/assets/characters/south-cinema/prabhas.webp"
+        },
+        {
+          "id": "ram-charan",
+          "name": "Ram Charan",
+          "image": "/assets/characters/south-cinema/ram-charan.webp"
+        },
+        {
+          "id": "jr-ntr",
+          "name": "Jr NTR",
+          "image": "/assets/characters/south-cinema/jr-ntr.webp"
+        },
+        {
+          "id": "mahesh-babu",
+          "name": "Mahesh Babu",
+          "image": "/assets/characters/south-cinema/mahesh-babu.webp"
+        },
+        {
+          "id": "yash",
+          "name": "Yash",
+          "image": "/assets/characters/south-cinema/yash.webp"
+        },
+        {
+          "id": "rishab-shetty",
+          "name": "Rishab Shetty",
+          "image": "/assets/characters/south-cinema/rishab-shetty.webp"
+        },
+        {
+          "id": "samantha",
+          "name": "Samantha",
+          "image": "/assets/characters/south-cinema/samantha.webp"
+        },
+        {
+          "id": "nayanthara",
+          "name": "Nayanthara",
+          "image": "/assets/characters/south-cinema/nayanthara.webp"
+        },
+        {
+          "id": "sai-pallavi",
+          "name": "Sai Pallavi",
+          "image": "/assets/characters/south-cinema/sai-pallavi.webp"
+        },
+        {
+          "id": "trisha",
+          "name": "Trisha",
+          "image": "/assets/characters/south-cinema/trisha.webp"
+        },
+        {
+          "id": "rashmika-mandanna",
+          "name": "Rashmika Mandanna",
+          "image": "/assets/characters/south-cinema/rashmika-mandanna.webp"
+        },
+        {
+          "id": "keerthy-suresh",
+          "name": "Keerthy Suresh",
+          "image": "/assets/characters/south-cinema/keerthy-suresh.webp"
+        },
+        {
+          "id": "anushka-shetty",
+          "name": "Anushka Shetty",
+          "image": "/assets/characters/south-cinema/anushka-shetty.webp"
+        },
+        {
+          "id": "tamannaah",
+          "name": "Tamannaah",
+          "image": "/assets/characters/south-cinema/tamannaah.webp"
+        },
+        {
+          "id": "kajal-aggarwal",
+          "name": "Kajal Aggarwal",
+          "image": "/assets/characters/south-cinema/kajal-aggarwal.webp"
+        },
+        {
+          "id": "pooja-hegde",
+          "name": "Pooja Hegde",
+          "image": "/assets/characters/south-cinema/pooja-hegde.webp"
+        },
+        {
+          "id": "sreeleela",
+          "name": "Sreeleela",
+          "image": "/assets/characters/south-cinema/sreeleela.webp"
+        },
+        {
+          "id": "jyothika",
+          "name": "Jyothika",
+          "image": "/assets/characters/south-cinema/jyothika.webp"
+        },
+        {
+          "id": "aditi-rao-hydari",
+          "name": "Aditi Rao Hydari",
+          "image": "/assets/characters/south-cinema/aditi-rao-hydari.webp"
+        }
+      ]
+    },
+    {
+      "id": "bollywood",
+      "name": "Bollywood",
+      "color": "#ec4899",
+      "emoji": "🎥",
+      "characters": [
+        {
+          "id": "shah-rukh-khan",
+          "name": "Shah Rukh Khan",
+          "image": "/assets/characters/bollywood/shah-rukh-khan.webp"
+        },
+        {
+          "id": "salman-khan",
+          "name": "Salman Khan",
+          "image": "/assets/characters/bollywood/salman-khan.webp"
+        },
+        {
+          "id": "aamir-khan",
+          "name": "Aamir Khan",
+          "image": "/assets/characters/bollywood/aamir-khan.webp"
+        },
+        {
+          "id": "hrithik-roshan",
+          "name": "Hrithik Roshan",
+          "image": "/assets/characters/bollywood/hrithik-roshan.webp"
+        },
+        {
+          "id": "ranbir-kapoor",
+          "name": "Ranbir Kapoor",
+          "image": "/assets/characters/bollywood/ranbir-kapoor.webp"
+        },
+        {
+          "id": "ranveer-singh",
+          "name": "Ranveer Singh",
+          "image": "/assets/characters/bollywood/ranveer-singh.webp"
+        },
+        {
+          "id": "akshay-kumar",
+          "name": "Akshay Kumar",
+          "image": "/assets/characters/bollywood/akshay-kumar.webp"
+        },
+        {
+          "id": "ajay-devgn",
+          "name": "Ajay Devgn",
+          "image": "/assets/characters/bollywood/ajay-devgn.webp"
+        },
+        {
+          "id": "shahid-kapoor",
+          "name": "Shahid Kapoor",
+          "image": "/assets/characters/bollywood/shahid-kapoor.webp"
+        },
+        {
+          "id": "vicky-kaushal",
+          "name": "Vicky Kaushal",
+          "image": "/assets/characters/bollywood/vicky-kaushal.webp"
+        },
+        {
+          "id": "ayushmann-khurrana",
+          "name": "Ayushmann Khurrana",
+          "image": "/assets/characters/bollywood/ayushmann-khurrana.webp"
+        },
+        {
+          "id": "rajkummar-rao",
+          "name": "Rajkummar Rao",
+          "image": "/assets/characters/bollywood/rajkummar-rao.webp"
+        },
+        {
+          "id": "deepika-padukone",
+          "name": "Deepika Padukone",
+          "image": "/assets/characters/bollywood/deepika-padukone.webp"
+        },
+        {
+          "id": "alia-bhatt",
+          "name": "Alia Bhatt",
+          "image": "/assets/characters/bollywood/alia-bhatt.webp"
+        },
+        {
+          "id": "priyanka-chopra",
+          "name": "Priyanka Chopra",
+          "image": "/assets/characters/bollywood/priyanka-chopra.webp"
+        },
+        {
+          "id": "kareena-kapoor",
+          "name": "Kareena Kapoor",
+          "image": "/assets/characters/bollywood/kareena-kapoor.webp"
+        },
+        {
+          "id": "katrina-kaif",
+          "name": "Katrina Kaif",
+          "image": "/assets/characters/bollywood/katrina-kaif.webp"
+        },
+        {
+          "id": "kiara-advani",
+          "name": "Kiara Advani",
+          "image": "/assets/characters/bollywood/kiara-advani.webp"
+        },
+        {
+          "id": "kriti-sanon",
+          "name": "Kriti Sanon",
+          "image": "/assets/characters/bollywood/kriti-sanon.webp"
+        },
+        {
+          "id": "shraddha-kapoor",
+          "name": "Shraddha Kapoor",
+          "image": "/assets/characters/bollywood/shraddha-kapoor.webp"
+        },
+        {
+          "id": "vidya-balan",
+          "name": "Vidya Balan",
+          "image": "/assets/characters/bollywood/vidya-balan.webp"
+        },
+        {
+          "id": "anushka-sharma",
+          "name": "Anushka Sharma",
+          "image": "/assets/characters/bollywood/anushka-sharma.webp"
+        },
+        {
+          "id": "aishwarya-rai",
+          "name": "Aishwarya Rai",
+          "image": "/assets/characters/bollywood/aishwarya-rai.webp"
+        },
+        {
+          "id": "madhuri-dixit",
+          "name": "Madhuri Dixit",
+          "image": "/assets/characters/bollywood/madhuri-dixit.webp"
+        },
+        {
+          "id": "kajol",
+          "name": "Kajol",
+          "image": "/assets/characters/bollywood/kajol.webp"
+        },
+        {
+          "id": "rani-mukerji",
+          "name": "Rani Mukerji",
+          "image": "/assets/characters/bollywood/rani-mukerji.webp"
+        },
+        {
+          "id": "tabu",
+          "name": "Tabu",
+          "image": "/assets/characters/bollywood/tabu.webp"
+        },
+        {
+          "id": "sanya-malhotra",
+          "name": "Sanya Malhotra",
+          "image": "/assets/characters/bollywood/sanya-malhotra.webp"
+        }
+      ]
+    },
+    {
+      "id": "music",
+      "name": "Music Icons",
+      "color": "#7c3aed",
+      "emoji": "🎧",
+      "characters": [
+        {
+          "id": "taylor-swift",
+          "name": "Taylor Swift",
+          "image": "/assets/characters/music/taylor-swift.webp"
+        },
+        {
+          "id": "the-weeknd",
+          "name": "The Weeknd",
+          "image": "/assets/characters/music/the-weeknd.webp"
+        },
+        {
+          "id": "billie-eilish",
+          "name": "Billie Eilish",
+          "image": "/assets/characters/music/billie-eilish.webp"
+        },
+        {
+          "id": "bruno-mars",
+          "name": "Bruno Mars",
+          "image": "/assets/characters/music/bruno-mars.webp"
+        },
+        {
+          "id": "eminem",
+          "name": "Eminem",
+          "image": "/assets/characters/music/eminem.webp"
+        },
+        {
+          "id": "rihanna",
+          "name": "Rihanna",
+          "image": "/assets/characters/music/rihanna.webp"
+        },
+        {
+          "id": "beyonc",
+          "name": "Beyoncé",
+          "image": "/assets/characters/music/beyonc.webp"
+        },
+        {
+          "id": "ed-sheeran",
+          "name": "Ed Sheeran",
+          "image": "/assets/characters/music/ed-sheeran.webp"
+        },
+        {
+          "id": "ariana-grande",
+          "name": "Ariana Grande",
+          "image": "/assets/characters/music/ariana-grande.webp"
+        },
+        {
+          "id": "michael-jackson",
+          "name": "Michael Jackson",
+          "image": "/assets/characters/music/michael-jackson.webp"
+        },
+        {
+          "id": "dua-lipa",
+          "name": "Dua Lipa",
+          "image": "/assets/characters/music/dua-lipa.webp"
+        },
+        {
+          "id": "drake",
+          "name": "Drake",
+          "image": "/assets/characters/music/drake.webp"
+        },
+        {
+          "id": "kendrick-lamar",
+          "name": "Kendrick Lamar",
+          "image": "/assets/characters/music/kendrick-lamar.webp"
+        },
+        {
+          "id": "post-malone",
+          "name": "Post Malone",
+          "image": "/assets/characters/music/post-malone.webp"
+        },
+        {
+          "id": "lady-gaga",
+          "name": "Lady Gaga",
+          "image": "/assets/characters/music/lady-gaga.webp"
+        },
+        {
+          "id": "adele",
+          "name": "Adele",
+          "image": "/assets/characters/music/adele.webp"
+        },
+        {
+          "id": "justin-bieber",
+          "name": "Justin Bieber",
+          "image": "/assets/characters/music/justin-bieber.webp"
+        },
+        {
+          "id": "sza",
+          "name": "SZA",
+          "image": "/assets/characters/music/sza.webp"
+        },
+        {
+          "id": "doja-cat",
+          "name": "Doja Cat",
+          "image": "/assets/characters/music/doja-cat.webp"
+        },
+        {
+          "id": "harry-styles",
+          "name": "Harry Styles",
+          "image": "/assets/characters/music/harry-styles.webp"
+        },
+        {
+          "id": "shakira",
+          "name": "Shakira",
+          "image": "/assets/characters/music/shakira.webp"
+        },
+        {
+          "id": "coldplay",
+          "name": "Coldplay",
+          "image": "/assets/characters/music/coldplay.webp"
+        },
+        {
+          "id": "linkin-park",
+          "name": "Linkin Park",
+          "image": "/assets/characters/music/linkin-park.webp"
+        },
+        {
+          "id": "a-r-rahman",
+          "name": "A. R. Rahman",
+          "image": "/assets/characters/music/a-r-rahman.webp"
+        },
+        {
+          "id": "shreya-ghoshal",
+          "name": "Shreya Ghoshal",
+          "image": "/assets/characters/music/shreya-ghoshal.webp"
+        },
+        {
+          "id": "arijit-singh",
+          "name": "Arijit Singh",
+          "image": "/assets/characters/music/arijit-singh.webp"
+        },
+        {
+          "id": "anirudh-ravichander",
+          "name": "Anirudh Ravichander",
+          "image": "/assets/characters/music/anirudh-ravichander.webp"
+        },
+        {
+          "id": "sid-sriram",
+          "name": "Sid Sriram",
+          "image": "/assets/characters/music/sid-sriram.webp"
+        }
+      ]
+    },
+    {
+      "id": "supercars",
+      "name": "Supercars",
+      "color": "#06b6d4",
+      "emoji": "🏁",
+      "characters": [
+        {
+          "id": "toyota-supra",
+          "name": "Toyota Supra",
+          "image": "/assets/characters/supercars/toyota-supra.webp"
+        },
+        {
+          "id": "nissan-gt-r",
+          "name": "Nissan GT-R",
+          "image": "/assets/characters/supercars/nissan-gt-r.webp"
+        },
+        {
+          "id": "porsche-911",
+          "name": "Porsche 911",
+          "image": "/assets/characters/supercars/porsche-911.webp"
+        },
+        {
+          "id": "lamborghini-aventador",
+          "name": "Lamborghini Aventador",
+          "image": "/assets/characters/supercars/lamborghini-aventador.webp"
+        },
+        {
+          "id": "bugatti-chiron",
+          "name": "Bugatti Chiron",
+          "image": "/assets/characters/supercars/bugatti-chiron.webp"
+        },
+        {
+          "id": "ford-mustang",
+          "name": "Ford Mustang",
+          "image": "/assets/characters/supercars/ford-mustang.webp"
+        },
+        {
+          "id": "mclaren-p1",
+          "name": "McLaren P1",
+          "image": "/assets/characters/supercars/mclaren-p1.webp"
+        },
+        {
+          "id": "koenigsegg-jesko",
+          "name": "Koenigsegg Jesko",
+          "image": "/assets/characters/supercars/koenigsegg-jesko.webp"
+        },
+        {
+          "id": "audi-r8",
+          "name": "Audi R8",
+          "image": "/assets/characters/supercars/audi-r8.webp"
+        },
+        {
+          "id": "laferrari",
+          "name": "LaFerrari",
+          "image": "/assets/characters/supercars/laferrari.webp"
+        },
+        {
+          "id": "ferrari-488",
+          "name": "Ferrari 488",
+          "image": "/assets/characters/supercars/ferrari-488.webp"
+        },
+        {
+          "id": "lamborghini-hurac-n",
+          "name": "Lamborghini Huracán",
+          "image": "/assets/characters/supercars/lamborghini-hurac-n.webp"
+        },
+        {
+          "id": "porsche-918",
+          "name": "Porsche 918",
+          "image": "/assets/characters/supercars/porsche-918.webp"
+        },
+        {
+          "id": "mclaren-720s",
+          "name": "McLaren 720S",
+          "image": "/assets/characters/supercars/mclaren-720s.webp"
+        },
+        {
+          "id": "pagani-huayra",
+          "name": "Pagani Huayra",
+          "image": "/assets/characters/supercars/pagani-huayra.webp"
+        },
+        {
+          "id": "mercedes-amg-gt",
+          "name": "Mercedes-AMG GT",
+          "image": "/assets/characters/supercars/mercedes-amg-gt.webp"
+        },
+        {
+          "id": "bmw-m4",
+          "name": "BMW M4",
+          "image": "/assets/characters/supercars/bmw-m4.webp"
+        },
+        {
+          "id": "honda-nsx",
+          "name": "Honda NSX",
+          "image": "/assets/characters/supercars/honda-nsx.webp"
+        },
+        {
+          "id": "dodge-challenger",
+          "name": "Dodge Challenger",
+          "image": "/assets/characters/supercars/dodge-challenger.webp"
+        },
+        {
+          "id": "chevrolet-corvette",
+          "name": "Chevrolet Corvette",
+          "image": "/assets/characters/supercars/chevrolet-corvette.webp"
+        },
+        {
+          "id": "aston-martin-valkyrie",
+          "name": "Aston Martin Valkyrie",
+          "image": "/assets/characters/supercars/aston-martin-valkyrie.webp"
+        },
+        {
+          "id": "lotus-evija",
+          "name": "Lotus Evija",
+          "image": "/assets/characters/supercars/lotus-evija.webp"
+        },
+        {
+          "id": "rimac-nevera",
+          "name": "Rimac Nevera",
+          "image": "/assets/characters/supercars/rimac-nevera.webp"
+        },
+        {
+          "id": "ford-gt",
+          "name": "Ford GT",
+          "image": "/assets/characters/supercars/ford-gt.webp"
+        },
+        {
+          "id": "maserati-mc20",
+          "name": "Maserati MC20",
+          "image": "/assets/characters/supercars/maserati-mc20.webp"
+        },
+        {
+          "id": "lexus-lfa",
+          "name": "Lexus LFA",
+          "image": "/assets/characters/supercars/lexus-lfa.webp"
+        },
+        {
+          "id": "nissan-350z",
+          "name": "Nissan 350Z",
+          "image": "/assets/characters/supercars/nissan-350z.webp"
+        },
+        {
+          "id": "mazda-rx-7",
+          "name": "Mazda RX-7",
+          "image": "/assets/characters/supercars/mazda-rx-7.webp"
+        }
+      ]
+    },
+    {
+      "id": "kerala-food",
+      "name": "Kerala Food",
+      "color": "#84cc16",
+      "emoji": "🍛",
+      "characters": [
+        {
+          "id": "porotta",
+          "name": "Porotta",
+          "image": "/assets/characters/kerala-food/porotta.webp"
+        },
+        {
+          "id": "puttu",
+          "name": "Puttu",
+          "image": "/assets/characters/kerala-food/puttu.webp"
+        },
+        {
+          "id": "appam",
+          "name": "Appam",
+          "image": "/assets/characters/kerala-food/appam.webp"
+        },
+        {
+          "id": "thalassery-biriyani",
+          "name": "Thalassery Biriyani",
+          "image": "/assets/characters/kerala-food/thalassery-biriyani.webp"
+        },
+        {
+          "id": "pazham-pori",
+          "name": "Pazham Pori",
+          "image": "/assets/characters/kerala-food/pazham-pori.webp"
+        },
+        {
+          "id": "kappa",
+          "name": "Kappa",
+          "image": "/assets/characters/kerala-food/kappa.webp"
+        },
+        {
+          "id": "meen-curry",
+          "name": "Meen Curry",
+          "image": "/assets/characters/kerala-food/meen-curry.webp"
+        },
+        {
+          "id": "sadhya",
+          "name": "Sadhya",
+          "image": "/assets/characters/kerala-food/sadhya.webp"
+        },
+        {
+          "id": "palada-payasam",
+          "name": "Palada Payasam",
+          "image": "/assets/characters/kerala-food/palada-payasam.webp"
+        },
+        {
+          "id": "beef-fry",
+          "name": "Beef Fry",
+          "image": "/assets/characters/kerala-food/beef-fry.webp"
+        },
+        {
+          "id": "chicken-roast",
+          "name": "Chicken Roast",
+          "image": "/assets/characters/kerala-food/chicken-roast.webp"
+        },
+        {
+          "id": "idiyappam",
+          "name": "Idiyappam",
+          "image": "/assets/characters/kerala-food/idiyappam.webp"
+        },
+        {
+          "id": "kadala-curry",
+          "name": "Kadala Curry",
+          "image": "/assets/characters/kerala-food/kadala-curry.webp"
+        },
+        {
+          "id": "malabar-parotta",
+          "name": "Malabar Parotta",
+          "image": "/assets/characters/kerala-food/malabar-parotta.webp"
+        },
+        {
+          "id": "pathiri",
+          "name": "Pathiri",
+          "image": "/assets/characters/kerala-food/pathiri.webp"
+        },
+        {
+          "id": "unniyappam",
+          "name": "Unniyappam",
+          "image": "/assets/characters/kerala-food/unniyappam.webp"
+        },
+        {
+          "id": "neyyappam",
+          "name": "Neyyappam",
+          "image": "/assets/characters/kerala-food/neyyappam.webp"
+        },
+        {
+          "id": "kozhukkatta",
+          "name": "Kozhukkatta",
+          "image": "/assets/characters/kerala-food/kozhukkatta.webp"
+        },
+        {
+          "id": "ela-ada",
+          "name": "Ela Ada",
+          "image": "/assets/characters/kerala-food/ela-ada.webp"
+        },
+        {
+          "id": "kallappam",
+          "name": "Kallappam",
+          "image": "/assets/characters/kerala-food/kallappam.webp"
+        },
+        {
+          "id": "vattayappam",
+          "name": "Vattayappam",
+          "image": "/assets/characters/kerala-food/vattayappam.webp"
+        },
+        {
+          "id": "pothichoru",
+          "name": "Pothichoru",
+          "image": "/assets/characters/kerala-food/pothichoru.webp"
+        },
+        {
+          "id": "fish-pollichathu",
+          "name": "Fish Pollichathu",
+          "image": "/assets/characters/kerala-food/fish-pollichathu.webp"
+        },
+        {
+          "id": "kozhikode-halwa",
+          "name": "Kozhikode Halwa",
+          "image": "/assets/characters/kerala-food/kozhikode-halwa.webp"
+        },
+        {
+          "id": "banana-chips",
+          "name": "Banana Chips",
+          "image": "/assets/characters/kerala-food/banana-chips.webp"
+        },
+        {
+          "id": "achappam",
+          "name": "Achappam",
+          "image": "/assets/characters/kerala-food/achappam.webp"
+        },
+        {
+          "id": "kumbilappam",
+          "name": "Kumbilappam",
+          "image": "/assets/characters/kerala-food/kumbilappam.webp"
+        },
+        {
+          "id": "sukhiyan",
+          "name": "Sukhiyan",
+          "image": "/assets/characters/kerala-food/sukhiyan.webp"
+        }
+      ]
+    }
+  ]
+}

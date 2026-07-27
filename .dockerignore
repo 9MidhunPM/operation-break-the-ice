@@ -1,0 +1,9 @@
+node_modules
+dist
+.git
+.env
+private/seniors.json
+private/photos
+data/*.sqlite*
+npm-debug.log*
+data/private
