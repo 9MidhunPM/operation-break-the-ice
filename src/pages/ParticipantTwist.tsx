@@ -3,6 +3,7 @@ import type { ParticipantState, TeamMemberChoice } from '@/types/game'
 import { castVote, cluePhotoUrl, getTeamMembers } from '@/lib/api'
 import { formatRemaining, useNow } from '@/lib/useClock'
 import { Logo } from '@/components/Logo'
+import { CharacterArt } from '@/components/CharacterArt'
 
 export default function ParticipantTwist({state,refresh}:{state:ParticipantState;refresh:()=>Promise<void>}){
   const phase=state.event.phase
@@ -11,7 +12,18 @@ export default function ParticipantTwist({state,refresh}:{state:ParticipantState
   if(phase==='VOTING')return <VotingScreen state={state} refresh={refresh}/>
   if(phase==='VOTES_LOCKED')return <Centered><Logo/><div className="status-icon">🔒</div><h1>Votes locked.</h1><p className="muted">Keep your eyes on the projector.</p></Centered>
   if(phase==='TEAM_REVEALS')return <Centered><Logo/><div className="status-icon">🎭</div><h1>The reveal has begun.</h1><p className="muted">Look at the projector. Keep watching your team.</p></Centered>
-  return <Centered><Logo/><div className="status-icon">⚡</div><h1>Mission complete.</h1><p className="muted">Welcome to IEEE.</p></Centered>
+  if(phase==='FINISHED')return <FinalIdentityScreen state={state}/>
+  return <Centered><Logo/><p className="muted">Updating mission…</p></Centered>
+}
+
+function FinalIdentityScreen({state}:{state:ParticipantState}){
+  const allies=state.alliance?.members.filter((m)=>m.id!==state.id)??[]
+  return <main className="player-page" style={{'--accent':state.team.color} as React.CSSProperties}>
+    <div className="player-bg"><CharacterArt image={state.character.image} name={state.character.name} emoji={state.team.emoji} color={state.team.color}/></div><div className="player-shade"/>
+    <section className="player-content"><Logo/><div className="identity"><p className="eyebrow">EVENT COMPLETE · {state.team.emoji} TEAM {state.team.name.toUpperCase()}</p><h1>{state.character.name}</h1><p className="player-name">{state.name}</p></div>
+      <div className="locked-card"><span className="success-ring">✓</span><p className="eyebrow">YOUR TEAM STAYS LOCKED</p><h2>{state.team.emoji} {state.team.name}</h2><p>{state.name} · {state.character.name}</p>{allies.length>0&&<><div className="divider"/><b>Alliance</b><small>{allies.map((a)=>`${a.name} · ${a.characterName}`).join(' + ')}</small></>}<div className="divider"/><small>This assignment stays on your phone until the organiser resets the live event.</small></div>
+    </section>
+  </main>
 }
 
 function AlertScreen(){return <main className="alert-page"><div className="scanlines"/><Logo/><div><p className="alert-kicker">⚠ SIGNAL INTERRUPTED</p><h1>THERE IS AN<br/><em>IMPOSTER</em><br/>IN YOUR TEAM.</h1><p>Look around. One person has been pretending to be a junior.</p></div></main>}

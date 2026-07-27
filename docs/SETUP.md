@@ -69,4 +69,4 @@ Before event day test:
 
 ## 7. Event reset
 
-Use the explicit admin reset endpoint/control only after exporting or confirming that current event data may be erased. Never manually delete the SQLite file during a live event.
+After **FINISHED**, participant phones intentionally keep their team/character identity visible. Use the explicit admin reset endpoint/control only when you actually want to clear those assignments for the next run. Never manually delete the SQLite file during a live event.

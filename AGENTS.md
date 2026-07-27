@@ -20,6 +20,8 @@ The canonical phases are:
 
 `JOINING -> PAIRING -> IMPOSTER_ALERT -> HUNT_CLUE_1 -> HUNT_PHOTO -> VOTING -> VOTES_LOCKED -> TEAM_REVEALS -> FINISHED`
 
+`FINISHED` must preserve and display each participant's assigned team/character/alliance until an explicit live-event reset. Advancing to the final phase must never clear participant identity.
+
 The organiser advances phases manually from `/admin`. Phase changes are broadcast over SSE and every client must also be able to recover the current state with normal GET APIs after refresh/reconnect.
 
 ## Architecture contract

@@ -66,7 +66,7 @@ Persist `/data` so the SQLite event database survives restarts.
 6. **VOTING** — participants vote within their own team.
 7. **VOTES_LOCKED** — voting freezes.
 8. **TEAM_REVEALS** — organiser reveals teams one-by-one.
-9. **FINISHED** — closing state.
+9. **FINISHED** — closing state; each phone keeps showing its assigned team, character, name, and alliance until the organiser explicitly resets the live event.
 
 ## Balancing
 

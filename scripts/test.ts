@@ -15,7 +15,7 @@ fs.writeFileSync(process.env.SENIOR_CONFIG_PATH,JSON.stringify(seniorConfig))
 
 const {assertSeniorConfigurationReady,syncSeniorConfig}=await import('../server/seniors')
 const {db,resetLiveEvent}=await import('../server/db')
-const {joinParticipant,participantRowByToken}=await import('../server/participants')
+const {joinParticipant,participantRowByToken,participantStateByToken}=await import('../server/participants')
 const {cancelPairRequest,createPairRequest,respondPairRequest}=await import('../server/pairing')
 const {setPhase,getEventState}=await import('../server/event-state')
 const {projectorStats,revealState,stats}=await import('../server/stats')
@@ -105,6 +105,9 @@ test('tied top votes remain a tie instead of silently selecting one person',()=>
 test('cross-team vote is rejected',()=>mustThrow(()=>castParticipantVote(voter,otherTeam.id)))
 setPhase('VOTES_LOCKED')
 test('vote write is rejected after voting locks',()=>mustThrow(()=>castParticipantVote(voter,target.id)))
+setPhase('TEAM_REVEALS')
+setPhase('FINISHED')
+test('finished event preserves each participant team and character until reset',()=>{const state=participantStateByToken(first.client_token);assert.ok(state);assert.equal(state.team.id,first.team_id);assert.equal(state.character.id,first.character_id);assert.equal(state.event.phase,'FINISHED')})
 test('event reset clears live state but preserves senior invite configuration',()=>{resetLiveEvent();const p=(db.prepare('SELECT COUNT(*) c FROM participants').get() as {c:number}).c;const invites=(db.prepare('SELECT COUNT(*) c FROM senior_invites').get() as {c:number}).c;const linked=(db.prepare('SELECT COUNT(*) c FROM senior_invites WHERE participant_id IS NOT NULL').get() as {c:number}).c;assert.equal(p,0);assert.equal(invites,21);assert.equal(linked,0);assert.equal(getEventState().phase,'JOINING')})
 
 console.log(`\n${passes} checks passed.`)
