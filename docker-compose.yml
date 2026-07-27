@@ -8,7 +8,7 @@ services:
       PORT: "8080"
       DB_PATH: /data/event.sqlite
       ADMIN_PIN: ${ADMIN_PIN:?set ADMIN_PIN in .env}
-      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:8080}
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:?set PUBLIC_BASE_URL in .env}
       SENIOR_CONFIG_PATH: /private/seniors.json
       PRIVATE_CONTENT_DIR: /private/photos
     volumes:

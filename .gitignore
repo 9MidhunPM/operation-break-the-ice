@@ -37,3 +37,6 @@ npm-debug.log*
 /data/*.db
 /data/*.db-*
 /data/private/
+
+# Cached in-house character artwork (generated from config/assets-sources.json)
+/public/assets/characters/
