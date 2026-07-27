@@ -1,0 +1,31 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-ssr
+*.tsbuildinfo
+
+# Local env / secrets (never commit real values)
+.env
+.env.local
+.env.*.local
+*.local
+
+# SQLite database + WAL/SHM (contains participant names — never commit)
+server/data.sqlite
+server/data.sqlite-shm
+server/data.sqlite-wall
+server/data.sqlite-wal
+server/data.sqlite-*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.swp

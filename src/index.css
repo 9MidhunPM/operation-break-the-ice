@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #05070f;
+  color: #eef2ff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* iOS safe areas */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Reusable layered background for the cinematic feel */
+@layer components {
+  .app-backdrop {
+    position: relative;
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(0, 169, 206, 0.18), transparent 60%),
+      radial-gradient(80% 60% at 100% 100%, rgba(123, 77, 255, 0.14), transparent 55%),
+      radial-gradient(60% 50% at 0% 90%, rgba(255, 184, 0, 0.08), transparent 55%),
+      linear-gradient(180deg, #070b18 0%, #05070f 60%, #03050c 100%);
+  }
+
+  .glass-card {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.07),
+      rgba(255, 255, 255, 0.02)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 1.25rem;
+  }
+
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-ieee-accent/80 focus-visible:ring-offset-2 focus-visible:ring-offset-ieee-deep;
+  }
+}
+
+/* Reduced motion: kill the showy animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
