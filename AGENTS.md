@@ -1,179 +1,274 @@
-# AGENTS.md — Multi-agent collaboration contract
+# AGENTS.md — Operation: Break the Ice
 
-This project was built in parallel by two coding agents. This file records the
-ownership boundaries so future contributors know what to touch and what to
-leave alone, and so the two halves integrate cleanly.
+Read this before changing code.
 
-## Agent 1 — Participant game + backend
+## Product truth
 
-Owns the student-facing experience and the reservation server.
+This repository powers a **live, in-person IEEE orientation game**. The website coordinates a physical social experience; it is not the experience by itself.
 
-### Files
+There are three surfaces:
 
-```
-src/App.tsx
-src/main.tsx
-src/pages/GamePage.tsx
-src/components/game/*
-src/components/shared/*
-src/lib/api.ts
-src/lib/clientToken.ts
-src/lib/session.ts
-src/lib/game.ts
-src/lib/useReducedMotion.ts
-src/types/api.ts
-src/types/game.ts
-src/data/teams.ts
-server/*
-scripts/check.ts
-vite.config.ts
-package.json
-tsconfig*.json
-tailwind.config.js
-postcss.config.js
-```
+- `/` — participant phone UI for juniors and secretly invited senior imposters.
+- `/screen` — auditorium projector.
+- `/admin` — organiser control panel.
 
-### Responsibilities
+The server is authoritative for every important event rule. Browsers are views/controllers, never the source of truth.
 
-- React Router shell + routes (`/`, `/screen`, `/admin`).
-- Participant flow: join → name entry → reveal → play → pair lock.
-- Single-process backend (Vite dev plugin + standalone prod server).
-  Reservation API: `claim`, `me`, `name`, `release`, `stats`, `health`.
-- SQLite persistence + least-fill team-balanced slot assignment.
-- Static game data (`teams.ts`): 25 teams × 20 characters = 500 slots, with
-  deterministic pair codes.
-- sessionStorage/localStorage participant state + client token.
-- Pairing rules (`checkTeammateCode`, `normalizeCode`).
+## Event flow
 
----
+The canonical phases are:
 
-## Agent 2 — Live event / stage experience
+`JOINING -> PAIRING -> IMPOSTER_ALERT -> HUNT_CLUE_1 -> HUNT_PHOTO -> VOTING -> VOTES_LOCKED -> TEAM_REVEALS -> FINISHED`
 
-Owns the auditorium projector and the stage operator console. Does **not**
-touch the participant game or the backend.
+The organiser advances phases manually from `/admin`. Phase changes are broadcast over SSE and every client must also be able to recover the current state with normal GET APIs after refresh/reconnect.
 
-### Files
+## Architecture contract
 
-```
-src/pages/ScreenPage.tsx
-src/pages/AdminPage.tsx
-src/components/stage/*
-src/data/imposterReveal.ts
-src/lib/stage.ts
-src/lib/useStageStats.ts
-public/imposters/README.txt
-docs/DESIGN.md
-docs/SETUP.md
-docs/TUTORIAL.md
-docs/TESTING.md
-AGENTS.md
-README.md
-```
+Keep the architecture deliberately small:
 
-### Responsibilities
+- React + Vite + TypeScript.
+- One Express server in production.
+- SQLite (`better-sqlite3`) for all mutable event state.
+- Server-Sent Events (SSE) for server -> browser notifications.
+- Ordinary HTTP requests for browser -> server actions.
+- JSON for static public content (teams/characters/theme metadata).
+- Docker for deployment.
 
-- `/screen` — full-viewport projector: 10 cinematic scenes, hidden operator
-  tray, keyboard control, fullscreen.
-- `/admin` — stage control panel: scene list, transport, photo controls, hunt
-  timer, countdown, reset (with confirm), live stats panel.
-- Stage state machine + same-browser sync (localStorage + `storage` event).
-- Childhood photo reveal (grid / groups / single) with graceful placeholders.
-- Live stats consumption (read-only `/api/stats` + `/api/recent-matches`),
-  offline-safe polling, shared by `/screen` and `/admin`.
+Do **not** introduce Redis, PostgreSQL, PocketBase, WebSockets, queues, an ORM, microservices, or extra services unless a demonstrated requirement cannot be met by the architecture above.
 
----
+## Server authority
 
-## Integration contract
+The server owns:
 
-### Routes
+- participant browser tokens and recovery;
+- junior team + character assignment;
+- senior invite/reserved team assignment;
+- pair requests;
+- pair acceptance/decline;
+- locked alliance membership;
+- event phase;
+- hunt deadline;
+- clue/photo availability;
+- votes;
+- team reveal progress;
+- projector recent-alliance feed;
+- event statistics.
 
-Agent 1 wires the router in `App.tsx` and lazy-imports the two page modules
-Agent 2 provides:
+`localStorage` may hold only a stable browser token and harmless UI preferences. Never store canonical pairing, team assignment, voting, event phase or senior identity only on the client.
 
-```ts
-const ScreenPage = lazy(() => import("@/pages/ScreenPage").then(m => ({ default: m.default })))
-const AdminPage  = lazy(() => import("@/pages/AdminPage").then(m => ({ default: m.default })))
-```
+## Team allocation
 
-Both pages must export a **`default`** React component. Agent 1 wraps them in
-a Suspense fallback so the project builds even while Agent 2 is mid-authoring.
+The event uses **21 permanent teams**. Actual junior turnout is unknown.
 
-### Shared data: `src/data/teams.ts`
+For every junior join:
 
-Agent 1 owns this file. Agent 2 reads team names from it **without statically
-importing it** (to avoid coupling during parallel dev and to survive the file
-not existing yet). Agent 2 uses Vite's `import.meta.glob` in
-`src/lib/stage.ts`:
+1. count joined juniors per team;
+2. find the minimum count among teams with an available junior character;
+3. randomly choose among those minimum-count teams;
+4. randomly choose an unused, non-senior-reserved character in that team;
+5. reserve both in one transaction.
 
-```ts
-const teamModules = import.meta.glob("../data/teams.{ts,tsx,...}", { eager: true });
-```
+This keeps junior team sizes within ±1 while preserving randomness.
 
-- If `teams.ts` exists → real team names are used on the projector.
-- If it doesn't → fallback labels (`Team 01`…`Team 25`).
-- Agent 2 never modifies `teams.ts` to suit itself.
+Senior reservations do not count toward junior balancing.
 
-### Imposter data: `src/data/imposterReveal.ts`
+Each team should have at least 28 public character identities so the system can tolerate higher-than-expected turnout.
 
-Agent 2 owns this. It stores **only** `teamId → childhoodImage`. There is:
+## Mutual alliance contract
 
-- NO senior name
-- NO current photo
-- NO personal data
-- NO `isImposter` flag
-- NO contact information
+An alliance is valid only after mutual server-confirmed acceptance.
 
-### Live stats API contract
+Required flow:
 
-Agent 2 consumes read-only endpoints from Agent 1's backend. The normalizer in
-`useStageStats.ts` is permissive and accepts **both** shapes:
+1. A enters/scans B's public code.
+2. Server verifies both exist, same team, different people, and both are unlocked.
+3. Server creates a short-lived pending request.
+4. B receives it via SSE and can Accept/Decline.
+5. On Accept, one DB transaction re-validates both and atomically creates the alliance.
+6. Both phones update from server state.
+7. Projector/admin receive the resulting alliance event/stats.
 
-- `perTeam` as an **array** of `{ teamId, teamName, joined, capacity }`
-  (Agent 1's actual shape), OR
-- `perTeam` as a `Record<string, number>` (the originally planned shape).
+No participant may belong to more than one locked alliance.
 
-Fields Agent 1 hasn't implemented yet (`pairsLocked`, `joinedLastMinute`,
-`/api/recent-matches`) degrade to `0` / empty without errors. When Agent 1
-adds them, the stage lights up automatically — no rework.
+If a final team has an odd live headcount, support for one 3-person alliance may be added explicitly, but do not create trios by default or infer them client-side.
 
-### Stage sync
+## Senior / imposter secrecy
 
-`/admin` and `/screen` sync via `localStorage` key `ieee-orientation-stage-v1`
-+ the `storage` event. This is **same-browser-profile only** (the stage
-laptop). It is not cross-device realtime and is not described as such. Student
-identity is never put in this store — only stage operator state.
+Each team has exactly one senior imposter, assigned before the event with a secret invite token.
 
----
+A senior invite reserves one team and one character. After joining, the senior's participant payload must look like a normal participant payload.
 
-## What each agent must NOT do
+Never send these to the participant frontend:
 
-### Agent 1 must NOT
+- `isImposter` / `isSenior`;
+- senior role flags;
+- other teams' senior mappings;
+- childhood photo paths before release;
+- answer keys.
 
-- Implement participant name entry, sessionStorage, character allocation,
-  QR slots, pair codes, pair validation, or pair locking in stage files.
-- Modify any file under `src/components/stage/`, `src/pages/ScreenPage.tsx`,
-  `src/pages/AdminPage.tsx`, `src/data/imposterReveal.ts`, `src/lib/stage.ts`,
-  or `src/lib/useStageStats.ts` to suit the participant game.
-- Store senior names, `isImposter`, or any personal data in `teams.ts`.
+Senior mapping and childhood-photo information must not live in `public/`, the public team JSON, or a client bundle.
 
-### Agent 2 must NOT
+Private clue/photo endpoints must verify participant team and current event phase before serving data.
 
-- Implement participant name entry, sessionStorage, character allocation,
-  student QR slots, pair codes, pair validation, or pair locking.
-- Build a backend, admin authentication, student statistics, voting, senior
-  names, senior accounts, server syncing, WebSockets, or databases.
-- Modify Agent 1's owned files (`App.tsx`, `main.tsx`, `GamePage.tsx`,
-  `teams.ts`, `server/*`, `vite.config.ts`, `package.json`, etc.) — except the
-  README/docs which are shared documentation.
+## Realtime rules
 
----
+SSE is a notification channel, not the only state store.
 
-## Non-goals (neither agent builds these)
+Typical broadcast events:
 
-- Backend authentication server.
-- Student records / senior records / permanent event state.
-- Realtime networking between admin and projector (the stage laptop uses
-  localStorage; that's it).
-- Voting system.
-- Digital identification of the 25 imposters (the reveal is **physical**).
-- Cross-device sync of stage state.
+- `snapshot-invalidated` — client should refetch its state;
+- `pair-request` — target has a new request;
+- `alliance-formed` — projector/admin feed;
+- `stats-changed`;
+- `phase-changed`;
+- `timer-changed`;
+- `vote-changed`;
+- `reveal-changed`.
+
+Reconnect must be safe. Clients must refetch current state after reconnect/focus.
+
+## Data boundaries
+
+### Public static JSON
+
+`config/teams.json` may contain:
+
+- team IDs/names/theme colours;
+- public character IDs/names;
+- public artwork paths;
+- public labels/taglines.
+
+### Private runtime/config
+
+Never expose as static files:
+
+- admin PIN/password;
+- senior invite token hashes;
+- senior/team mappings;
+- private clues/answers;
+- childhood-photo file locations.
+
+Production secrets belong in environment variables and/or mounted private files.
+
+### SQLite
+
+Use simple prepared SQL. Prefer constraints/transactions to duplicate TypeScript guard code.
+
+Conceptual tables:
+
+- `participants`
+- `senior_invites`
+- `pair_requests`
+- `alliances`
+- `alliance_members`
+- `votes`
+- `event_state`
+- `event_log`
+
+## UX contract — participant
+
+1. Enter name.
+2. Join.
+3. Animated welcome using the entered name.
+4. PS5-inspired full-screen character reveal.
+5. Persistent team/character/code/QR card.
+6. Physically find a same-team participant.
+7. Send or receive a mutual alliance request.
+8. Locked alliance state.
+9. Server-driven imposter alert/hunt/clue/photo/vote states.
+
+Keep the phone UI cinematic and simple. Character artwork should dominate the screen. Avoid dashboard-like density.
+
+## UX contract — projector
+
+During join/pairing:
+
+- QR/join prompt;
+- junior joined count;
+- alliance count;
+- recent alliance feed/animation.
+
+During the twist/hunt/reveal:
+
+- full-screen cinematic state;
+- timer when relevant;
+- team-by-team reveal controlled by admin.
+
+Do not queue every historical alliance animation forever; show only the freshest events.
+
+## UX contract — admin
+
+Admin should be operational, not theatrical. It needs:
+
+- total juniors;
+- senior readiness;
+- per-team headcounts;
+- alliances/unpaired counts;
+- current phase/timer;
+- phase transition controls;
+- clue/photo controls;
+- voting state/results;
+- reveal controls;
+- reset tools with confirmation.
+
+Admin actions are server-authoritative and protected by an admin PIN/session.
+
+## Code organisation
+
+Organise by domain, not by artificial agent ownership:
+
+- `src/pages` — participant/projector/admin route surfaces.
+- `src/components` — presentational UI.
+- `src/lib` — browser API/SSE/session helpers only.
+- `src/types` — shared serialisable contracts.
+- `server` — persistence, allocation, pairing, event state, voting, auth.
+- `config` — public static content.
+- `private` — local-only examples/placeholders; real sensitive files are gitignored.
+- `docs` — architecture, setup, testing, event runbook.
+
+Keep business rules out of React components.
+
+## Quality gates
+
+Before a substantial change is considered done:
+
+1. `npm run typecheck`
+2. `npm run build`
+3. `npm test`
+4. inspect duplicate rules between client/server;
+5. remove dead compatibility code from the old architecture;
+6. remove unnecessary abstractions/dependencies;
+7. search for privacy leaks (`isImposter`, private photo paths, invite secrets);
+8. inspect transactional race conditions around join/pair/vote;
+9. verify refresh/reconnect recovery;
+10. verify narrow phone layouts;
+11. verify Docker build/run configuration.
+
+Prefer deleting obsolete code over preserving adapters for an architecture that no longer exists.
+
+## Event-day reliability principles
+
+- Duplicate Join taps are idempotent.
+- Refresh restores participant state from the server.
+- SSE reconnects and resynchronises.
+- Duplicate pair accepts cannot create two alliances.
+- Votes are one-per-voter and editable only while voting is open.
+- Private photo/clue data stays unavailable before its phase.
+- SQLite uses WAL and a persistent volume.
+- Static image failure must not break the participant's basic identity/card.
+- Reliability beats cleverness.
+
+## Non-goals for the first production event
+
+Do not add unless explicitly requested:
+
+- student accounts/passwords;
+- long-term profiles;
+- multi-event tenancy;
+- chat;
+- complex analytics;
+- push notifications outside the open browser;
+- external managed databases;
+- AI face recognition;
+- elaborate role-management systems;
+- unnecessary animation frameworks.
