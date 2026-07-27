@@ -2,13 +2,22 @@ import express from 'express'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { api } from './api'
-import { syncSeniorConfig } from './seniors'
+import { assertSeniorConfigurationReady, syncSeniorConfig } from './seniors'
 
-if ((process.env.ADMIN_PIN || 'change-me-now') === 'change-me-now') {
-  throw new Error('ADMIN_PIN must be set to a strong non-default value before starting the production server.')
+const adminPin=process.env.ADMIN_PIN||''
+if (!adminPin || adminPin === 'change-me-now' || adminPin.length < 8) {
+  throw new Error('ADMIN_PIN must be set to a strong value of at least 8 characters before starting the production server.')
+}
+const publicBaseUrl=process.env.PUBLIC_BASE_URL||''
+try {
+  const parsed=new URL(publicBaseUrl)
+  if (!['http:','https:'].includes(parsed.protocol)) throw new Error()
+} catch {
+  throw new Error('PUBLIC_BASE_URL must be set to the real http(s) URL students will scan.')
 }
 
 syncSeniorConfig()
+assertSeniorConfigurationReady()
 const __dirname=path.dirname(fileURLToPath(import.meta.url))
 const app=express()
 app.use('/api',api)

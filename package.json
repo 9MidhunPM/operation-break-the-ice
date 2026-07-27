@@ -10,7 +10,8 @@
     "typecheck": "tsc -b --noEmit",
     "test": "tsx scripts/test.ts",
     "setup:seniors": "tsx scripts/generate-seniors.ts",
-    "assets:check": "tsx scripts/check-assets.ts"
+    "assets:check": "tsx scripts/check-assets.ts",
+    "assets:fetch": "tsx scripts/fetch-assets.ts"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.1",

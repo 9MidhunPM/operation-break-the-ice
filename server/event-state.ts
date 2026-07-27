@@ -17,9 +17,10 @@ export function getEventState(): EventState {
 export function setPhase(phase: EventPhase, huntMinutes?: number) {
   if (!PHASES.includes(phase)) throw new Error('Invalid phase')
   const current = getEventState()
+  if (phase === current.phase) return current
   const currentIndex = PHASES.indexOf(current.phase)
   const nextIndex = PHASES.indexOf(phase)
-  if (nextIndex !== currentIndex + 1 && phase !== current.phase) throw new Error(`Invalid transition ${current.phase} -> ${phase}`)
+  if (nextIndex !== currentIndex + 1) throw new Error(`Invalid transition ${current.phase} -> ${phase}`)
   const huntEndsAt = phase === 'HUNT_CLUE_1'
     ? Date.now() + Math.max(1, Math.min(60, huntMinutes ?? 15)) * 60_000
     : current.huntEndsAt
@@ -29,7 +30,9 @@ export function setPhase(phase: EventPhase, huntMinutes?: number) {
 }
 
 export function setReveal(teamId: string, step: RevealStep) {
-  db.prepare(`UPDATE event_state SET reveal_team_id=?, reveal_step=?, updated_at=? WHERE id=1 AND phase='TEAM_REVEALS'`)
+  if (!['VOTE','ANSWER'].includes(step)) throw new Error('Invalid reveal step.')
+  if (getEventState().phase !== 'TEAM_REVEALS') throw new Error('Team reveal controls are not active yet.')
+  db.prepare(`UPDATE event_state SET reveal_team_id=?, reveal_step=?, updated_at=? WHERE id=1`)
     .run(teamId, step, new Date().toISOString())
   return getEventState()
 }

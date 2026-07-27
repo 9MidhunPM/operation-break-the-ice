@@ -1,13 +1,16 @@
-import { useCallback, useEffect, useState } from 'react'
-import type { ParticipantState, TeamMemberChoice } from '@/types/game'
-import { ApiError, cancelPairRequest, castVote, cluePhotoUrl, createPairRequest, getMe, getTeamMembers, join, playerEventSource, respondPairRequest } from '@/lib/api'
-import { formatRemaining, useNow } from '@/lib/useClock'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import type { ParticipantState } from '@/types/game'
+import { activateSeniorBrowserSession, ApiError, cancelPairRequest, createPairRequest, getMe, isSeniorBrowserSession, join, playerEventSource, respondPairRequest } from '@/lib/api'
 import { useQr } from '@/lib/useQr'
 import { CharacterArt } from '@/components/CharacterArt'
 import { Logo } from '@/components/Logo'
 
+const ParticipantTwist=lazy(()=>import('@/pages/ParticipantTwist'))
+
 export default function ParticipantPage(){
   const inviteToken=window.location.pathname.startsWith('/s/') ? decodeURIComponent(window.location.pathname.slice(3)) : undefined
+  if(inviteToken)activateSeniorBrowserSession()
+  const seniorBrowserSession=isSeniorBrowserSession()
   const search=new URLSearchParams(window.location.search)
   const [state,setState]=useState<ParticipantState|null>(null)
   const [loading,setLoading]=useState(true)
@@ -19,12 +22,17 @@ export default function ParticipantPage(){
   useEffect(()=>{if(state&&inviteToken)window.history.replaceState(null,'','/')},[state,inviteToken])
   useEffect(()=>{if(!state)return;const es=playerEventSource();const reload=()=>void refresh();['connected','pair-request','snapshot-invalidated','phase-changed','reveal-changed'].forEach(k=>es.addEventListener(k,reload));return()=>es.close()},[state?.id,refresh])
   useEffect(()=>{const on=()=>void refresh();window.addEventListener('focus',on);return()=>window.removeEventListener('focus',on)},[refresh])
+  const requestExpiryKey=state?.pairRequests.map((r)=>`${r.id}:${r.expiresAt}`).join('|')||''
+  useEffect(()=>{if(!state?.pairRequests.length)return;const next=Math.min(...state.pairRequests.map((r)=>new Date(r.expiresAt).getTime()));const id=window.setTimeout(()=>void refresh(),Math.max(50,next-Date.now()+100));return()=>window.clearTimeout(id)},[requestExpiryKey,refresh,state?.pairRequests.length])
 
   if(loading)return <Centered><Logo/><p className="muted">Connecting…</p></Centered>
+  if(!state&&!inviteToken&&seniorBrowserSession)return <SeniorReconnectScreen/>
   if(!state)return <JoinScreen error={error} onJoin={async(name)=>{setError('');try{const s=await join(name,inviteToken);setState(s);setFresh(true)}catch(e){setError(e instanceof Error?e.message:'Could not join.')}}}/>
   if(fresh)return <RevealScreen state={state} onDone={()=>setFresh(false)}/>
   return <ParticipantExperience state={state} refresh={refresh} initialPairCode={search.get('pair')||''} error={error} setError={setError}/>
 }
+
+function SeniorReconnectScreen(){return <Centered><Logo/><div className="status-icon">🔐</div><h1>Senior session needs its private invite.</h1><p className="muted">This device was previously used as an imposter. After an event reset, reopen your private senior link instead of joining through the public QR.</p></Centered>}
 
 function JoinScreen({onJoin,error}:{onJoin:(name:string)=>Promise<void>;error:string}){
   const [name,setName]=useState('');const [busy,setBusy]=useState(false)
@@ -38,13 +46,7 @@ function RevealScreen({state,onDone}:{state:ParticipantState;onDone:()=>void}){
 }
 
 function ParticipantExperience({state,refresh,initialPairCode,error,setError}:{state:ParticipantState;refresh:()=>Promise<void>;initialPairCode:string;error:string;setError:(s:string)=>void}){
-  const phase=state.event.phase
-  if(phase==='IMPOSTER_ALERT')return <AlertScreen/>
-  if(phase==='HUNT_CLUE_1'||phase==='HUNT_PHOTO')return <HuntScreen state={state}/>
-  if(phase==='VOTING')return <VotingScreen state={state} refresh={refresh}/>
-  if(phase==='VOTES_LOCKED')return <Centered><Logo/><div className="status-icon">🔒</div><h1>Votes locked.</h1><p className="muted">Keep your eyes on the projector.</p></Centered>
-  if(phase==='TEAM_REVEALS')return <Centered><Logo/><div className="status-icon">🎭</div><h1>The reveal has begun.</h1><p className="muted">Look at the projector. Imposters, keep a straight face.</p></Centered>
-  if(phase==='FINISHED')return <Centered><Logo/><div className="status-icon">⚡</div><h1>Mission complete.</h1><p className="muted">Welcome to IEEE.</p></Centered>
+  if(!['JOINING','PAIRING'].includes(state.event.phase))return <Suspense fallback={<Centered><Logo/><p className="muted">Updating mission…</p></Centered>}><ParticipantTwist state={state} refresh={refresh}/></Suspense>
   return <PairingScreen state={state} refresh={refresh} initialPairCode={initialPairCode} error={error} setError={setError}/>
 }
 
@@ -67,7 +69,4 @@ function PairingScreen({state,refresh,initialPairCode,error,setError}:{state:Par
 
 function AllianceLocked({state}:{state:ParticipantState}){const others=state.alliance!.members.filter(m=>m.id!==state.id);return <div className="locked-card"><span className="success-ring">✓</span><p className="eyebrow">ALLIANCE LOCKED</p><h2>{state.name} <span>+</span> {others.map(x=>x.name).join(' + ')}</h2><p>{state.character.name} · {others.map(x=>x.characterName).join(' · ')}</p><div className="divider"/><b>Move to the {state.team.name} gathering area.</b><small>Stay with your team and wait for the next instruction.</small></div>}
 function RequestCard({title,subtitle,onAccept,onDecline,busy}:{title:string;subtitle:string;onAccept:()=>void;onDecline:()=>void;busy:boolean}){return <div className="request-card"><p className="eyebrow">ALLIANCE REQUEST</p><h2>{title}</h2><p>{subtitle}</p><div><button disabled={busy} onClick={onDecline} className="secondary">DECLINE</button><button disabled={busy} onClick={onAccept}>ACCEPT</button></div></div>}
-function AlertScreen(){return <main className="alert-page"><div className="scanlines"/><Logo/><div><p className="alert-kicker">⚠ SIGNAL INTERRUPTED</p><h1>THERE IS AN<br/><em>IMPOSTER</em><br/>IN YOUR TEAM.</h1><p>Look around. One person has been pretending to be a junior.</p></div></main>}
-function HuntScreen({state}:{state:ParticipantState}){const now=useNow();const remaining=state.event.huntEndsAt?formatRemaining(state.event.huntEndsAt-now):'--:--';return <Centered><Logo/><p className="eyebrow">TEAM {state.team.name.toUpperCase()}</p><h1 className="hunt-title">FIND THE IMPOSTER</h1><div className="timer">{remaining}</div><div className="clue-card"><span>{state.event.phase==='HUNT_PHOTO'?'FINAL CLUE':'CLUE #1'}</span>{state.event.phase==='HUNT_PHOTO'?<><img className="clue-photo" src={cluePhotoUrl()} alt="Your team imposter childhood clue"/><p>One of the people around you grew up to become this person.</p></>:<p>{state.clue}</p>}</div></Centered>}
-function VotingScreen({state,refresh}:{state:ParticipantState;refresh:()=>Promise<void>}){const [members,setMembers]=useState<TeamMemberChoice[]>([]);const [busy,setBusy]=useState('');const [err,setErr]=useState('');useEffect(()=>{getTeamMembers().then(setMembers).catch(e=>setErr(e.message))},[]);return <main className="vote-page"><Logo/><p className="eyebrow">TEAM {state.team.name.toUpperCase()}</p><h1>Who is the imposter?</h1><p className="muted">Choose one teammate. You can change your vote until voting closes.</p><div className="vote-grid">{members.filter(m=>m.id!==state.id).map(m=><button key={m.id} className={state.voteTargetId===m.id?'selected':''} disabled={!!busy} onClick={async()=>{setBusy(m.id);try{await castVote(m.id);await refresh()}catch(e){setErr(e instanceof Error?e.message:'Vote failed.')}finally{setBusy('')}}}><b>{m.name}</b><span>{m.characterName}</span>{state.voteTargetId===m.id&&<i>✓ VOTED</i>}</button>)}</div>{err&&<p className="error">{err}</p>}</main>}
 function Centered({children}:{children:React.ReactNode}){return <main className="centered">{children}</main>}

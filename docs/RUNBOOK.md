@@ -19,7 +19,7 @@ Admin watches junior totals and per-team balancing.
 
 ## Pairing
 
-Admin moves to `PAIRING`.
+Only after the arrival window is effectively closed, Admin moves to `PAIRING`. This closes **new junior joins**. Existing participants can keep pairing; seniors may still use their private invite during this phase. Odd-team trios are allowed only here, and only after that team's senior has joined.
 
 Anchor instruction: physically find someone from your team who is not already paired; exchange code/QR; one person sends the request and the other accepts.
 

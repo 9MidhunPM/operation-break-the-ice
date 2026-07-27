@@ -34,11 +34,9 @@ The same image is used both as the dominant character art and as the full-screen
 
 ## Rights / licensing
 
-Do not mass-download random search-engine images into this public repository.
+For this in-house orientation, organisers have approved the use of familiar third-party character, celebrity, sports, vehicle and food imagery. Cache selected images locally in the repository/deployment instead of hotlinking them so the event does not depend on third-party servers.
 
-For real people, use images the organisers have permission to use or assets with a suitable licence and retain attribution/licence records where required.
-
-For copyrighted fictional characters, supply event-authorised artwork separately rather than committing unverified third-party images here.
+Keep `config/assets-sources.json` when an automated source pass is used; it records where each cached image came from and makes bad matches easy to replace before the event.
 
 ## Asset manifest workflow
 
@@ -51,3 +49,18 @@ When adding a curated image:
 5. ensure text remains readable over the artwork.
 
 Artwork is presentation-only. Team/character allocation never depends on image availability.
+
+## Automated in-house artwork cache
+
+`config/assets-sources.json` maps each configured character to a selected image source. The actual image binaries are intentionally Git-ignored because this repository is public.
+
+On a machine with ImageMagick installed:
+
+```bash
+npm run assets:fetch
+npm run assets:check
+```
+
+`assets:fetch` downloads each source with a timeout, falls back to the cached search thumbnail when the origin fails, and renders a consistent 720×1280 WebP with a blurred full-screen background plus the uncropped source in the foreground. Existing files are skipped, so the command is resumable.
+
+The production Docker build installs ImageMagick in its build stage and runs the same fetch step before Vite builds `dist/`. A failed individual image never breaks deployment; that character uses the built-in cinematic fallback instead.
