@@ -4,7 +4,7 @@
 
 `npm test` should cover domain/server invariants without needing a browser:
 
-- 21-team catalogue validation;
+- 20-team catalogue validation;
 - balanced junior allocation;
 - idempotent join;
 - senior-reserved character excluded from junior allocation;
@@ -61,3 +61,9 @@ Search built output/source for:
 - senior mapping in public JSON.
 
 Attempt direct photo endpoint access before `HUNT_PHOTO`; expect rejection.
+
+## HTTP black-box suite
+
+Run `npm run test:blackbox` after a production build. It launches the real Express server on an isolated SQLite database and validates the app only through HTTP/SSE endpoints, including 420 junior joins, all 20 senior invites, pairing, phase gating, voting, reveal secrecy, and reset.
+
+`npm run verify` runs typecheck, logic tests, production build, black-box tests, and dependency audit in sequence.

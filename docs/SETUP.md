@@ -18,7 +18,7 @@ Edit `config/teams.json`.
 
 Requirements:
 
-- exactly 21 enabled teams for the current event;
+- exactly 20 enabled teams for the current event;
 - unique team IDs;
 - unique character IDs inside each team;
 - at least 28 characters/team recommended;
