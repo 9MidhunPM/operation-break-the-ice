@@ -26,6 +26,7 @@ const {cancelPairRequest,createPairRequest,respondPairRequest}=await import('../
 const {setPhase,getEventState}=await import('../server/event-state')
 const {projectorStats,revealState,stats}=await import('../server/stats')
 const {castParticipantVote,teamMembersForVoting}=await import('../server/voting')
+const {adminState}=await import('../server/admin')
 
 let passes=0
 function test(name:string,fn:()=>void){try{fn();passes++;console.log(`✓ ${name}`)}catch(e){console.error(`✗ ${name}`);throw e}}
@@ -41,6 +42,9 @@ test('catalog has exactly 20 teams with at least 28 characters each',()=>{
   assert.equal(raw.teams.length,20)
   assert.ok(raw.teams.every((t)=>t.characters.length>=28))
   assert.equal(new Set(raw.teams.map((t)=>t.id)).size,20)
+  const anime=raw.teams.find((t)=>t.id==='anime')!
+  assert.ok(anime.characters.some((c)=>c.id==='yoriichi-tsugikuni'))
+  assert.equal(anime.characters.some((c)=>c.id==='nezuko'),false)
 })
 
 test('sync removes an unused invite belonging to a retired 21st team',()=>{
@@ -93,6 +97,13 @@ for(let i=0;i<raw.teams.length;i++)joinParticipant(`senior-browser-${String(i).p
 
 test('one senior joins every team and expected turnout is 22 people per team',()=>{
   const s=stats();assert.equal(s.seniors,20);assert.equal(s.totalParticipants,440);assert.ok(s.perTeam.every((t)=>t.seniors===1&&t.total===22))
+})
+test('admin rosters contain every joined person grouped by team',()=>{
+  const state=adminState()
+  assert.equal(state.teamRosters.length,20)
+  assert.ok(state.teamRosters.every((team)=>team.members.length===22))
+  assert.ok(state.teamRosters.every((team)=>team.members.filter((member)=>member.isSenior).length===1))
+  assert.ok(state.teamRosters.every((team)=>team.members.every((member)=>member.characterName&&member.pairCode)))
 })
 test('projector stats expose juniors and alliances only',()=>{
   const s=projectorStats();assert.deepEqual(Object.keys(s).sort(),['alliances','juniors']);assert.equal(JSON.stringify(s).includes('senior'),false)

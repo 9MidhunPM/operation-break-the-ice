@@ -79,6 +79,7 @@ export interface RevealPublicState {
 }
 
 export interface PublicEventSnapshot {
+  teamCount: number
   event: EventState
   stats: ProjectorStats
   recentAlliances: AllianceSummary[]
