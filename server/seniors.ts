@@ -42,6 +42,18 @@ export function syncSeniorConfig() {
   }
   const parsed=JSON.parse(fs.readFileSync(filePath,'utf8')) as SeniorFile
   validateConfig(parsed.seniors)
+  const configuredTeams=new Set(parsed.seniors.map((s)=>s.teamId))
+  const participantTeams=db.prepare('SELECT DISTINCT team_id FROM participants').all() as Array<{team_id:string}>
+  const retiredParticipantTeams=participantTeams.filter((row)=>!configuredTeams.has(row.team_id)).map((row)=>row.team_id)
+  if(retiredParticipantTeams.length){
+    throw new Error(`Cannot retire team(s) with joined participants: ${retiredParticipantTeams.join(', ')}. Reset or migrate those participants before starting.`)
+  }
+  const existingInvites=db.prepare('SELECT team_id,participant_id FROM senior_invites').all() as Array<{team_id:string;participant_id:string|null}>
+  const retiredInvites=existingInvites.filter((row)=>!configuredTeams.has(row.team_id))
+  const linkedRetired=retiredInvites.filter((row)=>row.participant_id)
+  if(linkedRetired.length){
+    throw new Error(`Cannot retire team(s) with joined seniors: ${linkedRetired.map((row)=>row.team_id).join(', ')}.`)
+  }
   const upsert=db.prepare(`
     INSERT INTO senior_invites (id, token_hash, team_id, character_id, display_name, clue, photo_file, created_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -53,6 +65,7 @@ export function syncSeniorConfig() {
       photo_file=excluded.photo_file
   `)
   db.transaction(()=>{
+    for (const row of retiredInvites) db.prepare('DELETE FROM senior_invites WHERE team_id=?').run(row.team_id)
     for (const s of parsed.seniors) upsert.run(id('sinv'),sha256(s.inviteToken),s.teamId,s.characterId,s.displayName??null,s.clue!.trim(),s.photoFile!.trim(),new Date().toISOString())
   })()
   return true

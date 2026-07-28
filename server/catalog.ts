@@ -12,7 +12,7 @@ const catalogPath = path.resolve(process.cwd(), 'config/teams.json')
 const parsed = JSON.parse(fs.readFileSync(catalogPath, 'utf8')) as CatalogFile
 
 function validate(teams: TeamConfig[]) {
-  if (teams.length !== 21) throw new Error(`Expected 21 teams, got ${teams.length}`)
+  if (teams.length !== 20) throw new Error(`Expected 20 teams, got ${teams.length}`)
   const teamIds = new Set<string>()
   for (const team of teams) {
     if (teamIds.has(team.id)) throw new Error(`Duplicate team id: ${team.id}`)

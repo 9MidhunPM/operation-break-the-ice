@@ -2,7 +2,7 @@
 
 ## Goal
 
-Coordinate a physical orientation for an unknown number of juniors (expected around 420) split evenly across 21 teams, with one secretly assigned senior imposter per team.
+Coordinate a physical orientation for an unknown number of juniors (expected around 420) split evenly across 20 teams, with one secretly assigned senior imposter per team.
 
 ## Deployment shape
 
@@ -27,7 +27,7 @@ No external database or realtime service is required.
 
 ### Static public JSON
 
-`config/teams.json` defines the public 21-team catalogue and character pools. It is safe to expose.
+`config/teams.json` defines the public 20-team catalogue and character pools. It is safe to expose.
 
 ### Live mutable state
 

@@ -11,7 +11,9 @@
     "test": "tsx scripts/test.ts",
     "setup:seniors": "tsx scripts/generate-seniors.ts",
     "assets:check": "tsx scripts/check-assets.ts",
-    "assets:fetch": "tsx scripts/fetch-assets.ts"
+    "assets:fetch": "tsx scripts/fetch-assets.ts",
+    "test:blackbox": "tsx scripts/black-box-test.ts",
+    "verify": "npm run typecheck && npm test && npm run build && npm run test:blackbox && npm audit"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.1",

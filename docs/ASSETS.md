@@ -1,6 +1,6 @@
 # Character Artwork
 
-The public catalogue currently defines **21 teams × 28 identities = 588 character slots**.
+The public catalogue currently defines **20 teams × 28 identities = 560 character slots**.
 
 Each identity has an expected artwork path:
 
