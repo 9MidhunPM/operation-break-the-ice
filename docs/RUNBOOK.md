@@ -5,7 +5,7 @@
 1. Confirm server health and persistent SQLite volume.
 2. Open `/admin` and authenticate.
 3. Open `/screen` fullscreen on projector.
-4. Confirm 21 senior invite records are prepared.
+4. Confirm 20 senior invite records are prepared.
 5. Have seniors join via their private links before or alongside juniors.
 6. Verify admin shows senior readiness without exposing it publicly.
 
@@ -15,7 +15,7 @@ Projector displays event QR.
 
 Anchor instruction: scan, enter your name, press Join, wait for your character/team reveal.
 
-Admin watches junior totals and per-team balancing.
+Admin watches junior totals and per-team balancing. The **Team Rosters** tab shows every joined person by team, with character, pair code, senior marker, and paired/unpaired state; use its search box to locate someone quickly.
 
 ## Pairing
 
@@ -59,5 +59,5 @@ Finish with all senior imposters standing/revealing together.
 
 - If projector fails: phones remain authoritative for participant state; anchor can continue verbally.
 - If SSE briefly disconnects: wait for automatic reconnect; clients refetch state.
-- If one participant loses local browser storage: organiser can locate/reset them from admin tooling once implemented.
+- If a participant needs to be located during the event, use **Admin → Team Rosters** and search by name, character, or pair code. Individual participant reset is intentionally not exposed; use the full event reset only when the current session is disposable.
 - Do not restart/delete the DB to fix an individual participant problem.

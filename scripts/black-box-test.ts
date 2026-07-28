@@ -44,6 +44,7 @@ try{
   for(let i=0;i<80;i++){try{const h=await request('/api/health');if(h.status===200)break}catch{}await new Promise(r=>setTimeout(r,100));if(i===79)throw new Error(`Server did not start:\n${serverLog}`)}
   assert.equal((await request('/api/health')).status,200);ok('production health endpoint responds')
   const spa=await request(`/s/${seniorConfig.seniors[0]!.inviteToken}`);assert.equal(spa.status,200);assert.ok(spa.headers.get('content-type')?.includes('text/html'));ok('secret senior route serves the same SPA')
+  const ieeeLogo=await request('/ieee-sahrdaya.png');assert.equal(ieeeLogo.status,200);assert.ok(ieeeLogo.headers.get('content-type')?.includes('image/png'));ok('projector IEEE Sahrdaya logo is bundled locally')
 
   const badJoin=await request('/api/join',post({clientToken:'short',name:'A'}));assert.equal(badJoin.status,400);ok('invalid public join input is rejected')
   const wrongSenior=await request('/api/join',post({clientToken:'wrong-senior-token-abcdefgh',name:'Wrong Senior',inviteToken:'not-a-real-invite-token'}));assert.equal(wrongSenior.status,400);ok('invalid senior invite is rejected')
@@ -68,13 +69,13 @@ try{
   ok('all 20 secret senior links join reserved teams without role leakage')
   const reused=await request('/api/join',post({clientToken:'second-device-senior-abcdefgh',name:'Replay',inviteToken:seniorConfig.seniors[0]!.inviteToken}));assert.equal(reused.status,400);ok('used senior invite cannot be replayed from another device')
 
-  const publicState=await request('/api/public-state');assert.equal(publicState.status,200);assert.equal(publicState.body.stats.juniors,420);assert.equal('seniors' in publicState.body.stats,false);assertNoRoleLeak(publicState.body);ok('projector/public state hides senior counts and roles')
+  const publicState=await request('/api/public-state');assert.equal(publicState.status,200);assert.equal(publicState.body.teamCount,20);assert.equal(publicState.body.stats.juniors,420);assert.equal('seniors' in publicState.body.stats,false);assertNoRoleLeak(publicState.body);ok('projector/public state reports 20 teams without leaking senior counts or roles')
   const noPlayerSse=await request('/api/events');assert.equal(noPlayerSse.status,401);ok('participant SSE requires a valid participant session')
   const controller=new AbortController();const publicSse=await fetch(`${base}/api/events?scope=public`,{signal:controller.signal});assert.equal(publicSse.status,200);assert.ok(publicSse.headers.get('content-type')?.includes('text/event-stream'));controller.abort();ok('public SSE stream is available for projector realtime updates')
 
   const wrongAdmin=await request('/api/admin/login',post({pin:'wrong-pin'}));assert.equal(wrongAdmin.status,400);ok('wrong admin PIN is rejected')
   const login=await request('/api/admin/login',post({pin:adminPin}));assert.equal(login.status,200);const adminToken=login.body.token as string;assert.ok(adminToken);ok('admin authentication succeeds with configured PIN')
-  const admin=await request('/api/admin/state',{headers:auth(adminToken)});assert.equal(admin.status,200);assert.equal(admin.body.stats.juniors,420);assert.equal(admin.body.stats.seniors,20);assert.equal(admin.body.stats.totalParticipants,440);assert.equal(admin.body.seniorReadiness.length,20);assert.ok(admin.body.seniorReadiness.every((x:any)=>x.configured&&x.joined&&x.photoPresent));ok('admin sees 420 juniors + 20 seniors and complete readiness')
+  const admin=await request('/api/admin/state',{headers:auth(adminToken)});assert.equal(admin.status,200);assert.equal(admin.body.stats.juniors,420);assert.equal(admin.body.stats.seniors,20);assert.equal(admin.body.stats.totalParticipants,440);assert.equal(admin.body.seniorReadiness.length,20);assert.ok(admin.body.seniorReadiness.every((x:any)=>x.configured&&x.joined&&x.photoPresent));assert.equal(admin.body.teamRosters.length,20);assert.ok(admin.body.teamRosters.every((team:any)=>team.members.length===22));assert.ok(admin.body.teamRosters.every((team:any)=>team.members.filter((member:any)=>member.isSenior).length===1));ok('admin sees complete readiness and all 20 live team rosters')
 
   const firstTeam=raw.teams[0]!.id;const same=grouped.get(firstTeam)!;const a=same[0]!,b=same[1]!,c=same[2]!;const other=[...grouped.entries()].find(([id])=>id!==firstTeam)![1][0]!
   let r=await request('/api/pair-requests',post({targetCode:a.pairCode},playerHeaders(a.token)));assert.equal(r.status,400);ok('HTTP self-pairing is rejected')

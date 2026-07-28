@@ -57,7 +57,7 @@ Do not place them under `public/`.
 
 Before event day test:
 
-- 21 senior invites can join;
+- 20 senior invites can join;
 - at least 2 juniors in several teams can mutually pair;
 - refresh restores identity;
 - duplicate pairing is rejected;

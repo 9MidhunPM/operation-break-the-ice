@@ -10,6 +10,7 @@ import { projectorStats, recentAlliances, revealState } from './stats'
 import { adminSetPhase, adminSetReveal, adminState, login, requireAdmin, resetLiveEvent } from './admin'
 import { castParticipantVote, teamMembersForVoting } from './voting'
 import type { EventPhase, RevealStep } from '../src/types/game'
+import { TEAMS } from './catalog'
 
 export const api = express()
 api.use(express.json({ limit: '64kb' }))
@@ -117,7 +118,7 @@ api.get('/public-state',handler((_req,res)=>{
   const event=getEventState()
   const reveal=event.phase==='TEAM_REVEALS'&&event.revealTeamId?revealState(event.revealTeamId,event.revealStep):null
   const base=(process.env.PUBLIC_BASE_URL||'').replace(/\/$/,'')
-  res.json({event,stats:projectorStats(),recentAlliances:recentAlliances(),joinUrl:base||'/',reveal})
+  res.json({teamCount:TEAMS.length,event,stats:projectorStats(),recentAlliances:recentAlliances(),joinUrl:base||'/',reveal})
 }))
 
 api.post('/admin/login',handler((req,res)=>res.json({token:login(String((req.body as any).pin||''))})))
